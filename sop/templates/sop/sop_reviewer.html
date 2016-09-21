@@ -19,9 +19,9 @@
 						<div class="owl-slider">
                             {% for reviewer in reviewers %}
 							<div class="item">
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ reviewer.thumbnail }}" alt="">
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ reviewer.usermeta.thumbnail }}" alt="">
                                 <h3>{{ reviewer.first_name }} {{ reviewer.last_name }}</h3>
-                                <p>{{ reviewer.short_bio |safe }}</p>
+                                <p>{{ reviewer.usermeta.short_bio |safe }}</p>
 							</div>
                             {% endfor %}
 
