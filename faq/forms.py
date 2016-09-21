@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from common import models
+from .models import Question
 
 
 class FaqSearchForm(forms.Form):
@@ -11,9 +11,9 @@ class FaqSearchForm(forms.Form):
     def get_search_result(self):
         item = self.cleaned_data['search_item']
         if len(item) > 0 and item != '':
-            q = models.Question.objects.filter(
+            q = Question.objects.filter(
                 Q(text__icontains=item) |
-                Q(answer__text__icontains=item) |
+                Q(ans__icontains=item) |
                 Q(category__name__icontains=item) |
                 Q(tag__name__icontains=item)).distinct()
             return q

@@ -15,7 +15,7 @@ class Post(models.Model):
     category = models.ManyToManyField(Category)
     tag = models.ManyToManyField(Tag, blank=True)
     text = models.TextField(max_length=5000)
-    date = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title

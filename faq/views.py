@@ -6,10 +6,9 @@ from .models import Question
 
 
 def faq(request):
-    # News and Blog should not be added in FAQ page
-    types = models.Type.objects.all().exclude(name='News')
-    recent_q = Question.objects.all().order_by('date')[:20]
-    popular_q = Question.objects.filter(category__name='popular_faq').order_by('date')[:20]
+    types = models.Type.objects.all()
+    recent_q = Question.objects.all().order_by('date_modified')[:50]
+    popular_q = Question.objects.filter(is_popular=True).order_by('date_modified')[:50]
     faq_search_form = FaqSearchForm()
     context = {'types': types,
                'recent_q': recent_q,
