@@ -38,6 +38,9 @@
                         <li class="{% if request.resolver_match.url_name == "skype" %}active{% endif %}">
                             <a href="/skype/">Skype Session</a>
                         </li>
+                        <li class="{% if request.resolver_match.url_name == "blog" %}active{% endif %}">
+                            <a href="/blog/">Blog</a>
+                        </li>
                         <!-- About Us -->
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">

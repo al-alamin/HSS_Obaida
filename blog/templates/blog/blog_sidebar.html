@@ -1,0 +1,32 @@
+<!-- Recent Posts -->
+<div class="posts margin-bottom-40">
+    {% if recent_blogs %}
+    <div class="headline headline-md"><h2>Recent Posts</h2></div>
+    {% for blog in recent_blogs %}
+        <dl class="dl-horizontal">
+            <dt><a href="{% url 'blog_single' blog.id %}">
+                <img src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt=""/>
+            </a></dt>
+            <dd>
+                <p><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></p>
+            </dd>
+        </dl>
+    {% endfor %}
+</div><!--/ recent posts-->
+{% endif %}
+<div class=" margin-bottom-40">
+    <div class="headline headline-md"><h2>Categories</h2></div>
+    <ul class="list-inline tags-v2 margin-bottom-50">
+        {% for cat in cats %}
+        <li><a href="{% url 'blog_search_cat' cat.id %}">{{ cat.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class=" margin-bottom-40">
+    <div class="headline headline-md"><h2>Tags</h2></div>
+    <ul class="list-inline tags-v2 margin-bottom-50">
+        {% for tag in tags %}
+        <li><a href="{% url 'blog_search_tag' tag.id %}">{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

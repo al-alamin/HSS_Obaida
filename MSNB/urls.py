@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^skype/', include('skype_consultancy.urls') ),
     url(r'^contactus/', include('contact_us.urls')),
     url(r'^about_us/', include('about_us.urls')),
+    url(r'^blog/', include('blog.urls')),
     url(r'^google_search/$', google_custom_search, name='google_search'),
 ]
 if settings.DEBUG is True:
