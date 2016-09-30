@@ -10,7 +10,7 @@
 						<h2>{{ blog.title }}</h2>
             <div class="blog-post-tags">
                           <ul class="list-unstyled list-inline blog-info">
-                                <li><i class="fa fa-pencil"></i> <a href="{% url 'blog_search_author' blog.author.id %}">
+                                <li><i class="fa fa-pencil"></i> <a href="#">
                                     {{ blog.author.get_full_name }}
                                 </a></li>
                                 <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>
@@ -24,6 +24,9 @@
                                         <a href="{% url 'blog_search_tag' tag.id %}"> {{ tag.name }},&nbsp;</a>
                                     {% endfor %}
                                 </li>
+                             <li><i class="fa fa-book"></i> <a href="{% url 'blog_search_author' blog.author.id %}">
+                                    More from this author
+                                </a></li>
                             </ul>
             </div>
 						<div class="blog-img">
