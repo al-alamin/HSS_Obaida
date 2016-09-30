@@ -22,12 +22,16 @@
                                 <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>
                                 <li><i class="fa fa-cube"></i>
                                     {% for cat in blog.category.all %}
-                                        <a href="{% url 'blog_search_cat' cat.id %}"> {{ cat.name }},&nbsp;</a>
+                                        <a href="{% url 'blog_search_cat' cat.id %}">
+                                            {{ cat.name }} {% if not forloop.last %},&nbsp; {% endif %}
+                                        </a>
                                     {% endfor %}
                                 </li>
                                 <li><i class="fa fa-tags"></i>
                                     {% for tag in blog.tag.all %}
-                                        <a href="{% url 'blog_search_tag' tag.id %}"> {{ tag.name }},&nbsp;</a>
+                                        <a href="{% url 'blog_search_tag' tag.id %}">
+                                            {{ tag.name }}{% if not forloop.last %},&nbsp; {% endif %}
+                                        </a>
                                     {% endfor %}
                                 </li>
                                 <li><i class="fa fa-book"></i>
@@ -36,7 +40,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <p> {{ blog.excerpt }}&nbsp;...</p>
+                            <p> {{ blog.text|truncatewords_html:80 }}</p>
 
                             <p><a class="btn-u btn-u-sm" href="{% url 'blog_single' blog.id %}">Read More
                                 <i class="fa fa-angle-double-right margin-left-5"></i></a>

@@ -1,11 +1,13 @@
 # signal handlers
 # https://docs.djangoproject.com/en/1.10/ref/signals/
+# register signal handlers upfront in __init__.py
 
 import logging
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from social.apps.django_app.default.models import UserSocialAuth
+
 from common.utils import send_mail
 
 logger = logging.getLogger(__name__)

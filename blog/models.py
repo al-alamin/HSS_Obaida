@@ -34,10 +34,6 @@ class Post(models.Model):
                                   help_text='This image will be used in blog page or as a thumbnail in sidebar')
     date_created = models.DateField(auto_now_add=True)
 
-    @property
-    def excerpt(self):
-        return self.text[:500]
-
     def __str__(self):
         return self.title
 
