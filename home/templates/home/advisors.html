@@ -11,22 +11,38 @@
                     <a class="owl-btn next-v1"><i class="fa fa-angle-right"></i></a>
                 </div>
             </div><!--/navigation-->
+
             <div class="owl-slider">
                 {% for advisor in advisors %}
                     <div class="item">
                         <img class="img-responsive" src="{{ MEDIA_URL }}{{ advisor.usermeta.thumbnail }}" alt="">
-                        <span>{{ advisor.first_name }} {{ advisor.last_name }}</span>
+                        <span><a href="{% url 'user_profile' advisor.id %}">{{ advisor.get_full_name }}</a> </span>
                         <small>- {{ advisor.groups.first }} -</small>
                         <p>{{ advisor.usermeta.short_bio|safe }}</p>
+
+                        <!-- social icons-->
                         <ul class="list-inline team-social-v4">
-                            <li><a href="{{ advisor.usermeta.facebook_link }}" target="_blank"><i class="rounded-x fa fa-facebook"></i></a></li>
-                            <li><a href="{{ advisor.usermeta.twitter_link }}" target="_blank"><i class="rounded-x fa fa-twitter"></i></a></li>
-                            <li><a href="{{ advisor.usermeta.linkedin_link }}" target="_blank"><i class="rounded-x fa fa-linkedin"></i></a></li>
+                            {% if advisor.usermeta.facebook_link %}
+                                <li><a href="{{ advisor.usermeta.facebook_link }}" target="_blank">
+                                    <i class="rounded-x fa fa-facebook"></i></a>
+                                </li>
+                            {% endif %}
+                            {% if  advisor.usermeta.twitter_link %}
+                                <li><a href="{{ advisor.usermeta.twitter_link }}" target="_blank">
+                                    <i class="rounded-x fa fa-twitter"></i></a>
+                                </li>
+                            {% endif %}
+                            {% if  advisor.usermeta.linkedin_link %}
+                                <li><a href="{{ advisor.usermeta.linkedin_link }}" target="_blank">
+                                    <i class="rounded-x fa fa-linkedin"></i></a>
+                                </li>
+                            {% endif %}
                         </ul>
+                        <!-- end social icons-->
+
                     </div>
                 {% endfor %}
             </div>
-
         </div><!-- End Owl Carousel v1 -->
     </div> <!-- End row Team v4 -->
 </div>

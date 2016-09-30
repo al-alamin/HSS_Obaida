@@ -10,7 +10,7 @@
 						<h2>{{ blog.title }}</h2>
             <div class="blog-post-tags">
                           <ul class="list-unstyled list-inline blog-info">
-                                <li><i class="fa fa-pencil"></i> <a href="#">
+                                <li><i class="fa fa-pencil"></i> <a href="{% url 'user_profile' blog.author.id %}">
                                     {{ blog.author.get_full_name }}
                                 </a></li>
                                 <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>

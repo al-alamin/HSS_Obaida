@@ -16,7 +16,7 @@
                             <h2><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h2>
                             <ul class="list-unstyled list-inline blog-info">
                                 <li><i class="fa fa-pencil"></i> <a
-                                        href="#">
+                                        href="{% url 'user_profile' blog.author.id %}">
                                     {{ blog.author.get_full_name }}
                                 </a></li>
                                 <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>
