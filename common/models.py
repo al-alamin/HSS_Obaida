@@ -3,7 +3,7 @@ from django.db import models
 
 
 class UserMeta(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='meta')
     url = models.URLField(blank=True, null=True)
     short_bio = models.TextField(max_length=200, blank=True, null=True)
     long_bio = models.TextField(max_length=5000, blank=True, null=True)

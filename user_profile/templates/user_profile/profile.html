@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+
+<!--/container -->
+{% load staticfiles %}
+{% block content %}
+<div class="container content-sm">
+    <div class="row ">
+        <div class="col-md-5 ">
+            <img class="img-responsive" src="{{ MEDIA_URL }}{{ user.usermeta.thumbnail }}" alt="">
+        </div>
+        <div class="col-md-7">
+            <h2>{{ user.get_full_name }}</h2>
+
+            <p>{{ user.usermeta.long_bio |safe }}</p>
+        </div>
+
+    </div><!--/end row-->
+</div>
+{% endblock %}

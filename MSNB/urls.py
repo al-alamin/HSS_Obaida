@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^contactus/', include('contact_us.urls')),
     url(r'^about_us/', include('about_us.urls')),
     url(r'^blog/', include('blog.urls')),
+    url(r'^profile/', include('user_profile.urls')),
     url(r'^google_search/$', google_custom_search, name='google_search'),
 ]
 if settings.DEBUG is True:

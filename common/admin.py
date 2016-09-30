@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from common.models import Tag, Category, Type, UserMeta
+from common.models import Tag, Category, Type
 
-admin.site.register([Tag, Category, UserMeta])
+admin.site.register([Tag, Category])
 
 
 class TagInline(admin.TabularInline):
