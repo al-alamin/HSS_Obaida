@@ -46,3 +46,22 @@ class TestRelatedModels(TestCase):
         for q in latest:
             print('latest', q.date)
             print('ans', q.answer.text)
+
+
+class FaqTest(TestCase):
+
+    def test_faq_view_renders_faq_template(self):
+        response = self.client.get('/faq/')
+        self.assertTemplateUsed(response, 'faq/faq.html')
+
+    def test_faq_page_uses_faq_search_form(self):
+        response = self.client.get('/faq/')
+        self.assertIsInstance(
+            response.context['faq_search_form'], FaqSearchForm)
+
+    def test_faq_page_uses_question_model(self):
+        response = self.client.get('/faq/')
+        if (models.Question.objects.all().count() > 0):
+            self.assertIsInstance(
+                response.context['recent_q'], models.Question)
+        # question = Question.objects.create(text="new question")
