@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from django.contrib import admin
-from event.models import Event, Registration
+from event.models import Event, Registration, SkypeEmail
 # from kombu.transport.django import models as kombu_models
 from django.utils import timezone
 
@@ -70,19 +70,16 @@ class EventAdmin(admin.ModelAdmin):
         add.apply_async((15, 5), countdown=5)
 
 
-# class SkypeEmailAdmin(admin.ModelAdmin):
-#     raw_id_fields = ('event',)
+class SkypeEmailAdmin(admin.ModelAdmin):
+    raw_id_fields = ('event',)
 
-#     def save_model(self, request, obj, form, change):
-#         obj.creation_time = timezone.now()
-#         print("\n\n In Skype Email Event Save Method ")
-#         obj.save()
-
-#         skype_event_group_email.apply_async(
-#             (obj.id, obj.creation_time), eta=obj.send_time)
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        skype_event_group_email.apply_async(
+            (obj.id,))
 
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Registration)
 # admin.site.register(kombu_models.Message)
-# admin.site.register(SkypeEmail, SkypeEmailAdmin)
+admin.site.register(SkypeEmail, SkypeEmailAdmin)

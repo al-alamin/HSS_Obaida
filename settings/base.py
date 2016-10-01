@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     'about_us',
     'blog',
     'user_profile',
+    'ckeditor',
+    'ckeditor_uploader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -147,3 +149,41 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+CKEDITOR_MEDIA_URL = '/static/third-party/ckeditor'
+CKEDITOR_UPLOAD_PATH = "media/uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_REQUIRE_STAFF=False
+AWS_QUERYSTRING_AUTH = False
+
+
+
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+
+    'default': {
+        'toolbar': 'basic',
+        'height': 300,
+        'width': '100%',
+        # # 'styles': { 'background-color': 'red' },
+        #  'skin': 'office2013',
+    },
+
+    'text_field': {
+        'toolbar': 'basic',
+        'height': 100,
+        'width': '100%',
+        # # 'styles': { 'background-color': 'red' },
+        #  'skin': 'office2013',
+    },
+}

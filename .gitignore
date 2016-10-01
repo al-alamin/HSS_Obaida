@@ -6,3 +6,4 @@ db.sqlite3
 media/
 static/common/google_analytics.jsbash_commands/
 bash_commands
+server_statics
