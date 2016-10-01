@@ -21,4 +21,7 @@ def send_mail(subject, body, to_email=ADMIN_EMAILS, from_email=PRIMARY_ADMIN_EMA
     else:
         email_success = True
         logger.info('mail sent to {0}'.format(to_email))
+        
+    print("\n\n ***** email has been send successfully to ")
+    print(to_email)
     return email_success

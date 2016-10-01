@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from common.models import Tag, Category, Type
+from common.models import Tag, Category, Type, TaskList
 
 admin.site.register([Tag, Category])
 
@@ -18,3 +18,4 @@ class TypeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Type, TypeAdmin)
+admin.site.register(TaskList)

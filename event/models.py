@@ -54,3 +54,4 @@ class Registration(models.Model):
     class Meta:
         unique_together = ["event", "attendee"]
         ordering = ('created',)
+
