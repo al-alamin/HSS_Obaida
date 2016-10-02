@@ -41,14 +41,15 @@
     <link rel="stylesheet" href="{% static 'custom.css' %}">
     <!-- google service -->
     <script src="{% static 'common/google_analytics2.js' %}"></script>
-    <!-- facebook service -->
-    <script src="{% static 'common/facebook_sdk.js' %}"></script>
     <!-- for adding extra head element eg meta tag -->
     {% block head-content %}
     {% endblock %}
 </head>
 
 <body data-spy="spyscroll" class="header-fixed">
+<!-- facebook service -->
+<div id="fb-root"></div>
+<script src="{% static 'common/facebook_sdk.js' %}"></script>
 <!-- Header -->
 {% include 'common/nav.html' %}
 <!-- End Header -->

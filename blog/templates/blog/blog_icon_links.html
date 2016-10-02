@@ -28,11 +28,12 @@ make sure variable name is 'blog'. Used after the Title of the blog
         </a>
     </li>
     <li>
-        <!-- facebook share button code -->
-        <div id="fb-root"></div>
-        <div class="fb-share-button"
-             data-href="{% url 'blog_single' blog.id %}"
-             data-layout="button">
+        <!-- facebook like and share button code -->
+        <div class="fb-like"
+             data-href="http://www.mystudynotebook.com{% url 'blog_single' blog.id %}"
+             data-layout="standard"
+             data-action="like" data-size="small"
+             data-show-faces="false" data-share="true">
         </div>
     </li>
 </ul>
