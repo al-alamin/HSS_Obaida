@@ -27,4 +27,11 @@ make sure variable name is 'blog'. Used after the Title of the blog
             More from this author
         </a>
     </li>
+    <li>
+        <!-- facebook share button code -->
+        <div class="fb-share-button"
+             data-href="{% url 'blog_single' blog.id %}"
+             data-layout="button">
+        </div>
+    </li>
 </ul>
