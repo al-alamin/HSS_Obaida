@@ -1,5 +1,15 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
+{% block head-content %}
+    <!-- for customizing facebook sharing
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+    <meta property="og:url" content="{% url 'blog_single' blog.id %}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ blog.title }}"/>
+    <meta property="og:description" content="{{ blog.text|truncatewords:80 }}"/>
+    <meta property="og:image" content="{{ MEDIA_URL }}{{ blog.thumbnail }}"/>
+{% endblock %}
+
 {% block content %}
     <!--=== Content Part ===-->
     <div class="container content">
