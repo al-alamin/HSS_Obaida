@@ -15,7 +15,7 @@
                         <div class="col-md-7">
                             <h2><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h2>
                             {% include 'blog/blog_icon_links.html' %}
-                            <p> {{ blog.text|truncatewords_html:80 }}</p>
+                            <p> {{ blog.text|safe|truncatewords_html:80 }}</p>
 
                             <p><a class="btn-u btn-u-sm" href="{% url 'blog_single' blog.id %}">Read More
                                 <i class="fa fa-angle-double-right margin-left-5"></i></a>
