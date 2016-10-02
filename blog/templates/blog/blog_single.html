@@ -26,6 +26,11 @@
                         <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="">
                     </div>
                     <p>{{ blog.text|safe }}</p>
+
+                    <div class="fb-comments"
+                         data-href="{% url 'blog_single' blog.id %}"
+                         data-numposts="5">
+                    </div>
                 </div>
 
             </div>
