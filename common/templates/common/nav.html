@@ -31,16 +31,26 @@
                             <a href="/faq">FAQ</a>
                         </li>
 
-                        <li class=" {% if request.resolver_match.url_name == "sop_review" %}active{% endif %}">
-                            <a href="/sop">SOP REVIEW</a>
-                        </li>
-
-                        <li class="{% if request.resolver_match.url_name == "skype" %}active{% endif %}">
-                            <a href="/skype/">Skype Session</a>
-                        </li>
                         <li class="{% if request.resolver_match.url_name == "blog" %}active{% endif %}">
                             <a href="/blog/">Blog</a>
                         </li>
+
+                        <!-- Services -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                Services
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class=" {% if request.resolver_match.url_name == "sop_review" %}active{% endif %}">
+                                    <a href="/sop">SOP REVIEW</a>
+                                </li>
+                                <li class="{% if request.resolver_match.url_name == "skype" %}active{% endif %}">
+                                    <a href="/skype/">SKYPE SESSION</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- End Services -->
+
                         <!-- About Us -->
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
@@ -56,11 +66,13 @@
                             </ul>
                         </li>
                         <!-- End About Us -->
+
                         {# login menu #}
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                 {% if user and not user.is_anonymous %}
-                                    Welcome {{ user.first_name|default:user.username }} !
+                                    Welcome {{ user.first_name|truncatewords:1|default:user.last_name|truncatewords:1 }}
+                                    !
                                 {% else %}
                                     Login
                                 {% endif %}
@@ -88,8 +100,7 @@
                                     </li>
                                 {% endif %}
                             </ul>
-                            {# end login menu #}
-                        </li>
+                        </li>{# end login menu #}
 
                         <!-- Search Block -->
                         <li>

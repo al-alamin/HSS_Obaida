@@ -1,0 +1,39 @@
+<!-- Generates the author, categories, tags etc link
+make sure variable name is 'blog'. Used after the Title of the blog
+-->
+
+<ul class="list-unstyled list-inline blog-info">
+    <li><i class="fa fa-pencil"></i> <a
+            href="{% url 'user_profile' blog.author.id %}">
+        {{ blog.author.get_full_name }}
+    </a></li>
+    <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>
+    <li><i class="fa fa-cube"></i>
+        {% for cat in blog.category.all %}
+            <a href="{% url 'blog_search_cat' cat.id %}">
+                {{ cat.name }} {% if not forloop.last %},&nbsp; {% endif %}
+            </a>
+        {% endfor %}
+    </li>
+    <li><i class="fa fa-tags"></i>
+        {% for tag in blog.tag.all %}
+            <a href="{% url 'blog_search_tag' tag.id %}">
+                {{ tag.name }}{% if not forloop.last %},&nbsp; {% endif %}
+            </a>
+        {% endfor %}
+    </li>
+    <li><i class="fa fa-book"></i>
+        <a href="{% url 'blog_search_author' blog.author.id %}">
+            More from this author
+        </a>
+    </li>
+    <li>
+        <!-- facebook like and share button code -->
+        <div class="fb-like"
+             data-href="http://www.mystudynotebook.com{% url 'blog_single' blog.id %}"
+             data-layout="standard"
+             data-action="like" data-size="small"
+             data-show-faces="false" data-share="true">
+        </div>
+    </li>
+</ul>

@@ -27,16 +27,13 @@ class Post(models.Model):
     post_type = models.CharField(choices=post_type_choices, max_length=30)
     category = models.ManyToManyField(BlogCategory)
     tag = models.ManyToManyField(BlogTag)
-    text = models.TextField(max_length=5000)
+    text = models.TextField(max_length=50000)
     featured_img = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
-                                     help_text='This image will be used in item blog page')
+                                     help_text='This image will be used in single blog page')
     thumbnail = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
                                   help_text='This image will be used in blog page or as a thumbnail in sidebar')
     date_created = models.DateField(auto_now_add=True)
 
-    @property
-    def excerpt(self):
-        return self.text[:500]
-
     def __str__(self):
         return self.title
+

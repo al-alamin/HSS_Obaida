@@ -13,62 +13,69 @@
                     <div id="recent" class="tab-pane fade in active">
                         <div id="accordion-v1" class="panel-group acc-v1">
                             {% for question in recent_q %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#collapse-{{ forloop.counter }}" data-parent="#accordion-v1" data-toggle="collapse" data-toggle="tooltip" data-placement="top" title="click to see the answer" class="accordion-toggle">
-                                            {{ question.text | safe }}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}" id="collapse-{{ forloop.counter }}">
-                                    <div class="panel-body">
-                                        {{ question.ans | safe }}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a href="#recent-{{ forloop.counter }}" data-parent="#accordion-v1"
+                                               data-toggle="collapse" data-toggle="tooltip" data-placement="top"
+                                               title="click to see the answer" class="accordion-toggle">
+                                                {{ question.text | safe }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}"
+                                         id="recent-{{ forloop.counter }}">
+                                        <div class="panel-body">
+                                            {{ question.ans | safe }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endfor %}
                         </div>
                     </div>
                     <!-- End Tab Content 1 -->
+
                     <!-- Tab Content 2 -->
                     <div id="popular" class="tab-pane fade in">
-                        <div id="accordion-v1" class="panel-group acc-v1">
+                        <div id="accordion-v2" class="panel-group acc-v1">
                             {% for question in popular_q %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#collapse-{{ forloop.counter }}" data-parent="#accordion-v1" data-toggle="collapse" data-toggle="tooltip" data-placement="top" title="click to see the answer" class="accordion-toggle">
-                                            {{ question.text | safe}}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}" id="collapse-{{ forloop.counter }}">
-                                    <div class="panel-body">
-                                        {{ question.ans | safe }}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a href="#popular-{{ forloop.counter }}" data-parent="#accordion-v2"
+                                               data-toggle="collapse" data-toggle="tooltip" data-placement="top"
+                                               title="click to see the answer" class="accordion-toggle">
+                                                {{ question.text | safe }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}"
+                                         id="popular-{{ forloop.counter }}">
+                                        <div class="panel-body">
+                                            {{ question.ans | safe }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
                             {% endfor %}
                         </div>
                     </div>
                     <!-- End Tab Content 2 -->
 
-
                 </div>
             </div>
-        <div class="text-center">
-            <h3>
-                <i class="fa fa-question-circle fa-large "></i>
-                Have n't got your answer yet?
-                <a href="{% url 'contactus' %}"> Write to us!</a>
-            </h3>
-        </div>
+            <div class="text-center">
+                <h3>
+                    <i class="fa fa-question-circle fa-large "></i>
+                    Have n't got your answer yet?
+                    <a href="{% url 'contactus' %}"> Write to us!</a>
+                </h3>
+            </div>
         </div><!--/col-md-6-->
-            <!--End Tab v1-->
+        <!--End Tab v1-->
 
     </div>
-        <!-- End FAQ Content -->
+    <!-- End FAQ Content -->
 </div><!--/container-->
 
-		<!--=== End FAQ Page ===-->
+<!--=== End FAQ Page ===-->

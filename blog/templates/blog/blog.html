@@ -14,26 +14,12 @@
                         </div>
                         <div class="col-md-7">
                             <h2><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h2>
-                            <ul class="list-unstyled list-inline blog-info">
-                                <li><i class="fa fa-pencil"></i> <a href="{% url 'blog_search_author' blog.author.id %}">
-                                    {{ blog.author.get_full_name }}
-                                </a></li>
-                                <li><i class="fa fa-calendar"></i> {{ blog.date_created }}</li>
-                                <li><i class="fa fa-cube"></i>
-                                    {% for cat in blog.category.all %}
-                                        <a href="{% url 'blog_search_cat' cat.id %}"> {{ cat.name }},&nbsp;</a>
-                                    {% endfor %}
-                                </li>
-                                <li><i class="fa fa-tags"></i>
-                                    {% for tag in blog.tag.all %}
-                                        <a href="{% url 'blog_search_tag' tag.id %}"> {{ tag.name }},&nbsp;</a>
-                                    {% endfor %}
-                                </li>
-                            </ul>
-                            <p> {{ blog.excerpt }}&nbsp;...</p>
+                            {% include 'blog/blog_icon_links.html' %}
+                            <p> {{ blog.text|safe|truncatewords_html:80 }}</p>
 
-                            <p><a class="btn-u btn-u-sm" href="{% url 'blog_single' blog.id %}">Read More <i
-                                    class="fa fa-angle-double-right margin-left-5"></i></a></p>
+                            <p><a class="btn-u btn-u-sm" href="{% url 'blog_single' blog.id %}">Read More
+                                <i class="fa fa-angle-double-right margin-left-5"></i></a>
+                            </p>
                         </div>
                     </div>
                     <!--End Blog Post-->
@@ -44,7 +30,7 @@
             </div>
             <!-- Right Sidebar -->
             <div class="col-md-3">
-            {% include 'blog/blog_sidebar.html' %}
+                {% include 'blog/blog_sidebar.html' %}
             </div>
         </div>
     </div>

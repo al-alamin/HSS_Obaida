@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'settings',
     'about_us',
     'blog',
+    'user_profile',
 )
 
 MIDDLEWARE_CLASSES = (
