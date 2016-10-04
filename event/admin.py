@@ -3,14 +3,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 from django.contrib import admin
-from event.models import Event, Registration, EventEmail
-# from kombu.transport.django import models as kombu_models
+
 from django.utils import timezone
 
 from MSNB.celery import app
 from celery_app.models import TaskList
-from skype_consultancy.tasks import send_event_email_after_mintue, send_event_email_before_hour, send_event_email_before_mintue
+from skype_consultancy.tasks import send_remainder_email, send_feedback_remainder_email
 from skype_consultancy.tasks import add, skype_event_group_email
+from event.models import Event, Registration, EventEmail
 
 
 class RegistrationInline(admin.TabularInline):
@@ -26,6 +26,53 @@ class EventAdmin(admin.ModelAdmin):
     # existing event is edited the background email scheduling is going to be
     # created or updated too. Here that background task is going to be created
     # or updated.
+
+    # going to make a schedule to send email before 12 hours by synchoneously
+    # calling send_remainder_email
+    def schedule_first_remainder_email(self, obj, task_name):
+
+        first_reminder_time_hour_amount = 12
+        first_reminder_time = obj.start_time - \
+            timedelta(hours=first_reminder_time_hour_amount)
+        first_reminder_time_expire = first_reminder_time + timedelta(hours=3)
+
+        first_remainder_id = send_remainder_email.apply_async(
+            (obj.id,), eta=first_reminder_time,
+            expires=first_reminder_time_expire)  # event_id
+        # Creating tasking so that can revoke it later
+        TaskList.objects.create(
+            task_name=task_name, task_id=first_remainder_id.task_id)
+
+    def schedule_second_remainder_email(self, obj, task_name):
+
+        second_reminder_time_minute_amount = 30
+        second_reminder_time = obj.start_time - \
+            timedelta(minutes=second_reminder_time_minute_amount)
+        second_reminder_time_expire = second_reminder_time + \
+            timedelta(minutes=30)
+        # 30 minutes after the event
+        second_remainder_id = send_remainder_email.apply_async(
+            (obj.id,), eta=second_reminder_time,
+            expires=second_reminder_time_expire)  # event_id, minute
+        # Creating tasking so that can revoke it later
+        TaskList.objects.create(
+            task_name=task_name, task_id=second_remainder_id.task_id)
+
+    def schedule_feedback_remainder_email(self, obj, task_name):
+
+        feedback_reminder_time_minute_amount = 30
+        feedback_reminder_time = obj.end_time + \
+            timedelta(minutes=feedback_reminder_time_minute_amount)
+        feedback_reminder_time_expire = feedback_reminder_time + \
+            timedelta(hours=3)
+        feedback_remainder_id = send_feedback_remainder_email.apply_async(
+            (obj.id,), eta=feedback_reminder_time,
+            expires=feedback_reminder_time_expire)
+
+        # Creating tasking so that can revoke it later
+        TaskList.objects.create(
+            task_name=task_name, task_id=feedback_remainder_id.task_id)
+
     def save_model(self, request, obj, form, change):
         obj.save()
 
@@ -37,39 +84,14 @@ class EventAdmin(admin.ModelAdmin):
                 app.control.revoke(task.task_id)
                 logger.info("\n\nabout to delete task_id " + str(task.task_id))
                 task.delete()
-        # Previous tasks revoked and deleted from task_list
 
-        # Try to send email before 12 hours but for some reasons if it fails then
-        # After 3 hours trying ie 9 hours before the event it will not try to send
-        # any more
-        time_hour = obj.start_time - timedelta(hours=12)
-        time_hour_expire = time_hour + timedelta(hours=3)
-        # 30 minutes before the event
-        time_minute_before = obj.start_time - timedelta(minutes=30)
-        time_minute_before_expire = time_minute_before + timedelta(minutes=30)
-        # 30 minutes after the event
-        time_minute_after = obj.end_time + timedelta(minutes=30)
-        time_minute_after_expire = time_minute_after + timedelta(hours=3)
+        # Going to make background schedule by calling these methods
+        self.schedule_first_remainder_email(obj, task_name)
+        self.schedule_feedback_remainder_email(obj, task_name)
+        self.schedule_feedback_remainder_email(obj, task_name)
 
-        before_hour_id = send_event_email_before_hour.apply_async(
-            (obj.id,), eta=time_hour, expires=time_hour_expire)  # event_id
-        before_minute_id = send_event_email_before_mintue.apply_async(
-            (obj.id,), eta=time_minute_before, expires=time_minute_before_expire)  # event_id, minute
-        after_minute_id = send_event_email_after_mintue.apply_async(
-            (obj.id,), eta=time_minute_after, expires=time_minute_after_expire)
-
-        # # Now We'll save these 3 scheduled task id to task list DB so that we
-        # # can revoke it later if the event is edited.
-        TaskList.objects.create(
-            task_name=task_name, task_id=before_hour_id.task_id)
-        TaskList.objects.create(
-            task_name=task_name, task_id=before_minute_id.task_id)
-        TaskList.objects.create(
-            task_name=task_name, task_id=after_minute_id.task_id)
-
-        # send_event_email_before_mintue.apply_async(
-        #     (obj.id,), eta=timezone.now() + timedelta(minutes=2))
-
+        # This is for testing and debug purpose can be deleted in production
+        # site
         add.apply_async((15, 5), countdown=5)
 
 
@@ -78,11 +100,9 @@ class EventEmailAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        skype_event_group_email.apply_async(
-            (obj.id,))
+        skype_event_group_email.apply_async((obj.id,))
 
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Registration)
-# admin.site.register(kombu_models.Message)
 admin.site.register(EventEmail, EventEmailAdmin)

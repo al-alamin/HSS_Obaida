@@ -18,12 +18,12 @@ def send_mail_async(subject, body_email, to_email):
 
 
 @app.task
-def send_event_email_before_hour(event_id, hour=12):
+def send_remainder_email(event_id):
     # Change and updat the body_email make it more customized
-    print("\n\nGoing to send email %d hour before " % hour)
+    logger.info("\n\nGoing to send remainder email before ")
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
-    print(registered_user_list)
+    logger.info(registered_user_list)
     for reg_user in registered_user_list:
         to_email = [reg_user.attendee.email, ]
         subject = "Your event registration Remainder for the event {0}".format(
@@ -46,48 +46,24 @@ def send_event_email_before_hour(event_id, hour=12):
         send_mail(subject, body_email, to_email)
 
 
+# Remainder Email and Feedback remainder's emails subject body will be
+# significantly different. Thats why there are two methods to edit and
+# customize these two type email
+
 @app.task
-def send_event_email_before_mintue(event_id, minute=30):
-    # Change and updat the body_email make it more customized
-    print("\n\nGoing to send email %d mintues before " % minute)
+def send_feedback_remainder_email(event_id):
+    logger.info("\n\nGoing to send feedback remainder email ")
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
-    print(registered_user_list)
+    logger.info(registered_user_list)
     for reg_user in registered_user_list:
         to_email = [reg_user.attendee.email, ]
-        subject = "Your event registration Remainder for the event {0}".format(
+        subject = "Your Feedback Remainder for the event {0}".format(
             event.title)
         body_email = """
                      Hi {0},
-                     Your Remainder for the event {1}.
-                     The event will be held on {2} Bangladesh time.
-                     The event duration is {3} hour/ hours.
-                     Our Skype ID is 'MSNB'.
-                     For any query please email at support@mystudynotebook.com.
-                     Please don't forget to receive video call from our Skype account at the mentioned time.
-
-                     Thanks,
-                     Support Team
-                     My Study Notebook
-                     """.format(reg_user.attendee.first_name, event.title,
-                                event.start_time, event.duration)
-        send_mail(subject, body_email, to_email)
-
-
-@app.task
-def send_event_email_after_mintue(event_id, minute=30):
-    print("\n\nGoing to send email %d mintues after " % minute)
-    event = Event.objects.get(id=int(event_id))
-    registered_user_list = Registration.objects.filter(event=event)
-    print(registered_user_list)
-    for reg_user in registered_user_list:
-        to_email = [reg_user.attendee.email, ]
-        subject = "Your event registration Remainder for the event {0}".format(
-            event.title)
-        body_email = """
-                     Hi {0},
-                     Your Congratulation for the event {1}.
-                     The event will be held on {2} Bangladesh time.
+                     Congratulation for participation on the event {1}.
+                     The event was held on {2} Bangladesh time.
                      The event duration is {3} hour/ hours.
                      Our Skype ID is 'MSNB'.
                      For any query please email at support@mystudynotebook.com.
@@ -104,18 +80,20 @@ def send_event_email_after_mintue(event_id, minute=30):
 
 @app.task
 def skype_event_group_email(event_email_id):
-    print("\n\n In Skype group Email \n")
+    logger.info("\n\n In Skype group Email \n")
     event_email = EventEmail.objects.get(id=event_email_id)
     registered_user_list = Registration.objects.filter(event=event_email.event)
     print(registered_user_list)
     for reg_user in registered_user_list:
-        print("\n\n group email for loop\n")
+        logger.info("\n\n group email for loop\n")
         to_email = [reg_user.attendee.email, ]
         subject = event_email.email_subject
         body_email = event_email.email_body
         send_mail(subject, body_email, to_email)
 
 # This task is for practice purpose
+# Shared tasks are not assotiated with app so they are easy to import from
+# command line
 
 
 @shared_task
