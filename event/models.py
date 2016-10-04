@@ -58,7 +58,7 @@ class Registration(models.Model):
         ordering = ('created',)
 
 
-class SkypeEmail(models.Model):
+class EventEmail(models.Model):
     event = models.ForeignKey(Event)
     email_subject = models.CharField(max_length=100)
     email_body = RichTextField(max_length=500)

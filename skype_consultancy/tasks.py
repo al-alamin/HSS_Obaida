@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger(__name__)
 from celery import shared_task
 
-from event.models import Registration, Event, SkypeEmail
+from event.models import Registration, Event, EventEmail
 from common.utils import send_mail
 from MSNB.celery import app
 
@@ -18,7 +18,7 @@ def send_mail_async(subject, body_email, to_email):
 
 
 @app.task
-def send_skype_email_before_hour(event_id, hour=12):
+def send_event_email_before_hour(event_id, hour=12):
     # Change and updat the body_email make it more customized
     print("\n\nGoing to send email %d hour before " % hour)
     event = Event.objects.get(id=int(event_id))
@@ -47,7 +47,7 @@ def send_skype_email_before_hour(event_id, hour=12):
 
 
 @app.task
-def send_skype_email_before_mintue(event_id, minute=30):
+def send_event_email_before_mintue(event_id, minute=30):
     # Change and updat the body_email make it more customized
     print("\n\nGoing to send email %d mintues before " % minute)
     event = Event.objects.get(id=int(event_id))
@@ -75,7 +75,7 @@ def send_skype_email_before_mintue(event_id, minute=30):
 
 
 @app.task
-def send_skype_email_after_mintue(event_id, minute=30):
+def send_event_email_after_mintue(event_id, minute=30):
     print("\n\nGoing to send email %d mintues after " % minute)
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
@@ -103,16 +103,16 @@ def send_skype_email_after_mintue(event_id, minute=30):
 
 
 @app.task
-def skype_event_group_email(skype_email_id):
+def skype_event_group_email(event_email_id):
     print("\n\n In Skype group Email \n")
-    skype_email = SkypeEmail.objects.get(id=skype_email_id)
-    registered_user_list = Registration.objects.filter(event=skype_email.event)
+    event_email = EventEmail.objects.get(id=event_email_id)
+    registered_user_list = Registration.objects.filter(event=event_email.event)
     print(registered_user_list)
     for reg_user in registered_user_list:
         print("\n\n group email for loop\n")
         to_email = [reg_user.attendee.email, ]
-        subject = skype_email.email_subject
-        body_email = skype_email.email_body
+        subject = event_email.email_subject
+        body_email = event_email.email_body
         send_mail(subject, body_email, to_email)
 
 # This task is for practice purpose

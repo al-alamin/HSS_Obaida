@@ -3,18 +3,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 from django.contrib import admin
-from event.models import Event, Registration, SkypeEmail
+from event.models import Event, Registration, EventEmail
 # from kombu.transport.django import models as kombu_models
 from django.utils import timezone
 
 from MSNB.celery import app
 from common.models import TaskList
-from skype_consultancy.tasks import send_skype_email_after_mintue, send_skype_email_before_hour, send_skype_email_before_mintue
+from skype_consultancy.tasks import send_event_email_after_mintue, send_event_email_before_hour, send_event_email_before_mintue
 from skype_consultancy.tasks import add, skype_event_group_email
-
-# send_skype_email_before_hour
-#     send_skype_email_before_mintue
-# Register your models here.
 
 
 class RegistrationInline(admin.TabularInline):
@@ -55,11 +51,11 @@ class EventAdmin(admin.ModelAdmin):
         time_minute_after = obj.end_time + timedelta(minutes=30)
         time_minute_after_expire = time_minute_after + timedelta(hours=3)
 
-        before_hour_id = send_skype_email_before_hour.apply_async(
+        before_hour_id = send_event_email_before_hour.apply_async(
             (obj.id,), eta=time_hour, expires=time_hour_expire)  # event_id
-        before_minute_id = send_skype_email_before_mintue.apply_async(
+        before_minute_id = send_event_email_before_mintue.apply_async(
             (obj.id,), eta=time_minute_before, expires=time_minute_before_expire)  # event_id, minute
-        after_minute_id = send_skype_email_after_mintue.apply_async(
+        after_minute_id = send_event_email_after_mintue.apply_async(
             (obj.id,), eta=time_minute_after, expires=time_minute_after_expire)
 
         # # Now We'll save these 3 scheduled task id to task list DB so that we
@@ -71,13 +67,13 @@ class EventAdmin(admin.ModelAdmin):
         TaskList.objects.create(
             task_name=task_name, task_id=after_minute_id.task_id)
 
-        # send_skype_email_before_mintue.apply_async(
+        # send_event_email_before_mintue.apply_async(
         #     (obj.id,), eta=timezone.now() + timedelta(minutes=2))
 
         add.apply_async((15, 5), countdown=5)
 
 
-class SkypeEmailAdmin(admin.ModelAdmin):
+class EventEmailAdmin(admin.ModelAdmin):
     raw_id_fields = ('event',)
 
     def save_model(self, request, obj, form, change):
@@ -89,4 +85,4 @@ class SkypeEmailAdmin(admin.ModelAdmin):
 admin.site.register(Event, EventAdmin)
 admin.site.register(Registration)
 # admin.site.register(kombu_models.Message)
-admin.site.register(SkypeEmail, SkypeEmailAdmin)
+admin.site.register(EventEmail, EventEmailAdmin)
