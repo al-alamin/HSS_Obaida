@@ -4,6 +4,7 @@ __pycache__/
 wsgi.py
 db.sqlite3
 media/
-static/common/google_analytics.jsbash_commands/
+static/common/google_analytics.js
+bash_commands/
 bash_commands
 server_statics
