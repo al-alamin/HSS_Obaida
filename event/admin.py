@@ -1,5 +1,7 @@
 from datetime import timedelta
+import logging
 
+logger = logging.getLogger(__name__)
 from django.contrib import admin
 from event.models import Event, Registration, SkypeEmail
 # from kombu.transport.django import models as kombu_models
@@ -23,16 +25,21 @@ class EventAdmin(admin.ModelAdmin):
     inlines = [RegistrationInline]
     raw_id_fields = ('presenter',)
 
+    # Here the save model is going to be overwritten. When someone creates or edits
+    # edits a event this method is going to be called. When new event is created or
+    # existing event is edited the background email scheduling is going to be
+    # created or updated too. Here that background task is going to be created
+    # or updated.
     def save_model(self, request, obj, form, change):
         obj.save()
 
         # Going to delete the previously scheduled tasks on this event
-        task_name = "event->" + str(obj.id)
+        task_name = "event_task_name " + str(obj.id)
         task_list = TaskList.objects.filter(task_name=task_name)
         if(task_list):
-            for task in task_list:                
+            for task in task_list:
                 app.control.revoke(task.task_id)
-                print("\n\nabout to delete task_id " + str(task.task_id))
+                logger.info("\n\nabout to delete task_id " + str(task.task_id))
                 task.delete()
         # Previous tasks revoked and deleted from task_list
 

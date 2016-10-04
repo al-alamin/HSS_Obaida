@@ -1,20 +1,23 @@
 from __future__ import absolute_import
+import logging
 
+logger = logging.getLogger(__name__)
 from celery import shared_task
 
 from event.models import Registration, Event, SkypeEmail
 from common.utils import send_mail
+from MSNB.celery import app
 
 
-@shared_task
+@app.task
 def send_mail_async(subject, body_email, to_email):
     # This is just a helper function to send email async.
     # See the output in the worker process console
-    print("\n\n Goint to send email asynconously\n\n")
+    logger.info("\n\n Goint to send email asynconously\n\n")
     return send_mail(subject, body_email, to_email)
 
 
-@shared_task
+@app.task
 def send_skype_email_before_hour(event_id, hour=12):
     # Change and updat the body_email make it more customized
     print("\n\nGoing to send email %d hour before " % hour)
@@ -43,7 +46,7 @@ def send_skype_email_before_hour(event_id, hour=12):
         send_mail(subject, body_email, to_email)
 
 
-@shared_task
+@app.task
 def send_skype_email_before_mintue(event_id, minute=30):
     # Change and updat the body_email make it more customized
     print("\n\nGoing to send email %d mintues before " % minute)
@@ -71,7 +74,7 @@ def send_skype_email_before_mintue(event_id, minute=30):
         send_mail(subject, body_email, to_email)
 
 
-@shared_task
+@app.task
 def send_skype_email_after_mintue(event_id, minute=30):
     print("\n\nGoing to send email %d mintues after " % minute)
     event = Event.objects.get(id=int(event_id))
@@ -99,7 +102,7 @@ def send_skype_email_after_mintue(event_id, minute=30):
         send_mail(subject, body_email, to_email)
 
 
-@shared_task
+@app.task
 def skype_event_group_email(skype_email_id):
     print("\n\n In Skype group Email \n")
     skype_email = SkypeEmail.objects.get(id=skype_email_id)
@@ -113,9 +116,9 @@ def skype_event_group_email(skype_email_id):
         send_mail(subject, body_email, to_email)
 
 # This task is for practice purpose
+
+
 @shared_task
 def add(x=4, y=5):
     print("\n\n****** task add method")
     return x + y
-
-

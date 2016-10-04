@@ -153,7 +153,6 @@ AUTHENTICATION_BACKENDS = (
 
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 CKEDITOR_MEDIA_URL = '/static/third-party/ckeditor'
 CKEDITOR_UPLOAD_PATH = "media/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
