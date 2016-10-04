@@ -83,7 +83,7 @@ def skype_event_group_email(event_email_id):
     logger.info("\n\n In Skype group Email \n")
     event_email = EventEmail.objects.get(id=event_email_id)
     registered_user_list = Registration.objects.filter(event=event_email.event)
-    print(registered_user_list)
+    logger.info(registered_user_list)
     for reg_user in registered_user_list:
         logger.info("\n\n group email for loop\n")
         to_email = [reg_user.attendee.email, ]

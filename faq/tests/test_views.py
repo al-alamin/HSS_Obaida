@@ -42,14 +42,24 @@ class TestFaqSearchResult(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_faq_search_cat_url_status(self):
-        response = self.client.get(reverse("faq_search_cat", args=[self.category.id]))
+        response = self.client.get(
+            reverse("faq_search_cat", args=[self.category.id]))
         self.assertEqual(response.status_code, 200)
 
     def test_faq_search_tag_url_status(self):
-        response = self.client.get(reverse("faq_search_cat", args=[self.tag.id]))
-        self.assertEqual(response.status_code, 200)
-    
-    def test_faq_search_url_status(self):
-        response = self.client.post(reverse("faq_search"), {'search_item': 'a'})
+        response = self.client.get(
+            reverse("faq_search_cat", args=[self.tag.id]))
         self.assertEqual(response.status_code, 200)
 
+    def test_faq_search_url_status(self):
+        response = self.client.post(
+            reverse("faq_search"), {'search_item': 'a'})
+        self.assertEqual(response.status_code, 200)
+
+    # faq search result's views is relatively complex there are lots of conditional
+    # statement for get/post requests. This will make sure whatever the logic is
+    # at least there is FaqSearchForm in the template
+    def test_faq_page_uses_faq_search_form(self):
+        response = self.client.get('/faq/')
+        self.assertIsInstance(
+            response.context['faq_search_form'], FaqSearchForm)
