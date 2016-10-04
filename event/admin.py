@@ -8,7 +8,7 @@ from event.models import Event, Registration, EventEmail
 from django.utils import timezone
 
 from MSNB.celery import app
-from common.models import TaskList
+from celery_app.models import TaskList
 from skype_consultancy.tasks import send_event_email_after_mintue, send_event_email_before_hour, send_event_email_before_mintue
 from skype_consultancy.tasks import add, skype_event_group_email
 
