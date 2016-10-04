@@ -87,7 +87,7 @@ class EventAdmin(admin.ModelAdmin):
 
         # Going to make background schedule by calling these methods
         self.schedule_first_remainder_email(obj, task_name)
-        self.schedule_feedback_remainder_email(obj, task_name)
+        self.schedule_second_remainder_email(obj, task_name)
         self.schedule_feedback_remainder_email(obj, task_name)
 
         # This is for testing and debug purpose can be deleted in production

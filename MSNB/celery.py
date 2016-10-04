@@ -7,8 +7,7 @@ from django.conf import settings  # noqa
 
 app = Celery('MSNB',
              BROKER_URL='amqp://guest:guest@localhost:5672//',
-             backend='amqp://',
-             CELERY_RESULT_BACKEND='redis://localhost:6379/0',
+             backend='amqp://',             
              )
 
 # Using a string here means the worker will not have to
@@ -22,4 +21,8 @@ app.conf.update(
     CELERY_RESULT_SERIALIZER='json',
     CELERY_TIMEZONE='Europe/Oslo',
     CELERY_ENABLE_UTC=True,
+)
+
+app.conf.update(
+    CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend',
 )
