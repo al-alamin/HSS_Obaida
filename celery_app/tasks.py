@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-from datetime import timedelta
 import logging
 
 from celery import shared_task
@@ -9,10 +8,7 @@ from event.models import Registration, Event, EventEmail
 from common.utils import send_mail
 from MSNB.celery import app
 
-from skype_consultancy.background_email_constants import FIRST_REMAINDER_HOUR,\
-    SECOND_REMAINDER_MINUTE,\
-    FEEDBACK_REMAINDER_MINUTE,\
-    BODY_REMAINDER,\
+from celery_app.background_email_constants import BODY_REMAINDER,\
     BODY_FEEDBACK,\
     SUBJECT_REMAINDER,\
     SUBJECT_FEEDBACK
@@ -31,7 +27,7 @@ def send_mail_async(subject, body_email, to_email):
 @app.task
 def send_remainder_email(event_id, is_feedback_email):
     # Change and updat the body_email make it more customized
-    logger.info("\n\nGoing to send remainder email before event\n\n")
+    logger.info("\n\nGoing to send remainder email event\n\n")
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
     logger.info(registered_user_list)
@@ -54,55 +50,34 @@ def send_remainder_email(event_id, is_feedback_email):
         send_mail(subject, body_email, to_email)
 
 
-def schedule_background_email(event):
-    task_name = "event_task_name " + str(event.id)
-
-    # Deleting Previously Scheduled task in this event
-    task_list = TaskList.objects.filter(task_name=task_name)
+def delete_previous_tasks(event, parent_task_name):
+    task_list = TaskList.objects.filter(parent_task_name=parent_task_name)
     if(task_list):
         for task in task_list:
-            app.control.revoke(task.task_id)
-            logger.info("\nabout to delete task_id " + str(task.task_id))
+            app.control.revoke(task.celery_task_id)
+            logger.info(
+                "\nabout to delete task_id " + str(task.celery_task_id))
             task.delete()
 
-    #  Scheduling first remainder email
-    first_reminder_time = event.start_time - \
-        timedelta(hours=FIRST_REMAINDER_HOUR)
-    first_reminder_time_expire = first_reminder_time + timedelta(hours=3)
 
-    first_remainder_id = send_remainder_email.apply_async(
-        (event.id, False), eta=first_reminder_time,
-        expires=first_reminder_time_expire)
+def schedule_background_email(event, parent_task_name, start_timedelta,
+                              expire_timedelta, is_feedback_email):
+
+    if(is_feedback_email):
+        reminder_start_time = event.end_time + start_timedelta
+    else:
+        reminder_start_time = event.start_time - start_timedelta
+
+    reminder_expire_time = reminder_start_time + expire_timedelta
+
+    remainder_task_id = send_remainder_email.apply_async(
+        (event.id, is_feedback_email), eta=reminder_start_time,
+        expires=reminder_expire_time)
     # Creating tasking so that can revoke it later
     TaskList.objects.create(
-        task_name=task_name, task_id=first_remainder_id.task_id)
+        parent_task_name=parent_task_name,
+        celery_task_id=remainder_task_id.task_id)
 
-    # Scheduling second remainder email
-    second_reminder_time = event.start_time - \
-        timedelta(minutes=SECOND_REMAINDER_MINUTE)
-    second_reminder_time_expire = second_reminder_time + \
-        timedelta(minutes=30)
-    # 30 minutes after the event
-    second_remainder_id = send_remainder_email.apply_async(
-        (event.id, False), eta=second_reminder_time,
-        expires=second_reminder_time_expire)
-    # Creating tasking so that can revoke it later
-    TaskList.objects.create(
-        task_name=task_name, task_id=second_remainder_id.task_id)
-
-    # Scheduling feedback remainder Email
-    feedback_reminder_time = event.end_time + \
-        timedelta(minutes=FEEDBACK_REMAINDER_MINUTE)
-    feedback_reminder_time_expire = feedback_reminder_time + \
-        timedelta(hours=3)
-    feedback_remainder_id = send_remainder_email.apply_async(
-        (event.id, True), eta=feedback_reminder_time,
-        expires=feedback_reminder_time_expire)
-
-    # Creating tasking so that can revoke it later
-    TaskList.objects.create(
-        task_name=task_name, task_id=feedback_remainder_id.task_id)
-    # True means successfully finished executing
     return True
 
 
