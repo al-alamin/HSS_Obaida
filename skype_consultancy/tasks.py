@@ -13,7 +13,7 @@ from MSNB.celery import app
 def send_mail_async(subject, body_email, to_email):
     # This is just a helper function to send email async.
     # See the output in the worker process console
-    logger.info("\n\n Goint to send email asynconously\n\n")
+    logger.info("\n\n skype_consutancy.tasks.send_mail.async method\n\n")
     return send_mail(subject, body_email, to_email)
 
 
