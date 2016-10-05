@@ -6,5 +6,5 @@ from django.db import models
 # in this model
 
 class TaskList(models.Model):
-    task_name = models.CharField(max_length=50)
-    task_id = models.CharField(max_length=50)
+    parent_task_name = models.CharField(max_length=50)
+    celery_task_id = models.CharField(max_length=50)
