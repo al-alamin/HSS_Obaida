@@ -1,12 +1,23 @@
 from __future__ import absolute_import
+from datetime import timedelta
 import logging
 
-logger = logging.getLogger(__name__)
 from celery import shared_task
+from celery_app.models import TaskList
 
 from event.models import Registration, Event, EventEmail
 from common.utils import send_mail
 from MSNB.celery import app
+
+from skype_consultancy.background_email_constants import FIRST_REMAINDER_HOUR,\
+    SECOND_REMAINDER_MINUTE,\
+    FEEDBACK_REMAINDER_MINUTE,\
+    BODY_REMAINDER,\
+    BODY_FEEDBACK,\
+    SUBJECT_REMAINDER,\
+    SUBJECT_FEEDBACK
+
+logger = logging.getLogger(__name__)
 
 
 @app.task
@@ -18,64 +29,80 @@ def send_mail_async(subject, body_email, to_email):
 
 
 @app.task
-def send_remainder_email(event_id):
+def send_remainder_email(event_id, is_feedback_email):
     # Change and updat the body_email make it more customized
     logger.info("\n\nGoing to send remainder email before event\n\n")
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
     logger.info(registered_user_list)
+
     for reg_user in registered_user_list:
         to_email = [reg_user.attendee.email, ]
-        subject = "Your event registration Remainder for the event {0}".format(
-            event.title)
+        if(is_feedback_email):
+            subject = SUBJECT_FEEDBACK.format(event.title)
+            body_email = BODY_FEEDBACK.format(reg_user.attendee.first_name,
+                                              event.title,
+                                              event.start_time,
+                                              event.duration)
+        else:
+            subject = SUBJECT_REMAINDER.format(event.title)
+            body_email = BODY_REMAINDER.format(reg_user.attendee.first_name,
+                                               event.title,
+                                               event.start_time,
+                                               event.duration)
 
-        body_email = """
-                     Hi {0},
-                     Your Remainder for the event {1}.
-                     The event will be held on {2} Bangladesh time.
-                     The event duration is {3} hour/ hours.
-                     Our Skype ID is 'MSNB'.
-                     For any query please email at support@mystudynotebook.com.
-                     Please don't forget to receive video call from our Skype account at the mentioned time.
-
-                     Thanks,
-                     Support Team
-                     My Study Notebook
-                     """.format(reg_user.attendee.first_name, event.title,
-                                event.start_time, event.duration)
         send_mail(subject, body_email, to_email)
 
 
-# Remainder Email and Feedback remainder's emails subject body will be
-# significantly different. Thats why there are two methods to edit and
-# customize these two type email
+def schedule_background_email(event):
+    task_name = "event_task_name " + str(event.id)
 
-@app.task
-def send_feedback_remainder_email(event_id):
-    logger.info("\n\nGoing to send feedback remainder email ")
-    event = Event.objects.get(id=int(event_id))
-    registered_user_list = Registration.objects.filter(event=event)
-    logger.info(registered_user_list)
-    for reg_user in registered_user_list:
-        to_email = [reg_user.attendee.email, ]
-        subject = "Your Feedback Remainder for the event {0}".format(
-            event.title)
-        body_email = """
-                     Hi {0},
-                     Congratulation for participation on the event {1}.
-                     The event was held on {2} Bangladesh time.
-                     The event duration is {3} hour/ hours.
-                     Our Skype ID is 'MSNB'.
-                     For any query please email at support@mystudynotebook.com.
-                     Please don't forget to receive video call from our Skype account at the mentioned time.
-                     Thanks for Joing our sessiong.
-                     Give us your feed back.
-                     Thanks,
-                     Support Team
-                     My Study Notebook
-                     """.format(reg_user.attendee.first_name, event.title,
-                                event.start_time, event.duration)
-        send_mail(subject, body_email, to_email)
+    # Deleting Previously Scheduled task in this event
+    task_list = TaskList.objects.filter(task_name=task_name)
+    if(task_list):
+        for task in task_list:
+            app.control.revoke(task.task_id)
+            logger.info("\nabout to delete task_id " + str(task.task_id))
+            task.delete()
+
+    #  Scheduling first remainder email
+    first_reminder_time = event.start_time - \
+        timedelta(hours=FIRST_REMAINDER_HOUR)
+    first_reminder_time_expire = first_reminder_time + timedelta(hours=3)
+
+    first_remainder_id = send_remainder_email.apply_async(
+        (event.id, False), eta=first_reminder_time,
+        expires=first_reminder_time_expire)
+    # Creating tasking so that can revoke it later
+    TaskList.objects.create(
+        task_name=task_name, task_id=first_remainder_id.task_id)
+
+    # Scheduling second remainder email
+    second_reminder_time = event.start_time - \
+        timedelta(minutes=SECOND_REMAINDER_MINUTE)
+    second_reminder_time_expire = second_reminder_time + \
+        timedelta(minutes=30)
+    # 30 minutes after the event
+    second_remainder_id = send_remainder_email.apply_async(
+        (event.id, False), eta=second_reminder_time,
+        expires=second_reminder_time_expire)
+    # Creating tasking so that can revoke it later
+    TaskList.objects.create(
+        task_name=task_name, task_id=second_remainder_id.task_id)
+
+    # Scheduling feedback remainder Email
+    feedback_reminder_time = event.end_time + \
+        timedelta(minutes=FEEDBACK_REMAINDER_MINUTE)
+    feedback_reminder_time_expire = feedback_reminder_time + \
+        timedelta(hours=3)
+    feedback_remainder_id = send_remainder_email.apply_async(
+        (event.id, True), eta=feedback_reminder_time,
+        expires=feedback_reminder_time_expire)
+
+    # Creating tasking so that can revoke it later
+    TaskList.objects.create(
+        task_name=task_name, task_id=feedback_remainder_id.task_id)
+
 
 
 @app.task
