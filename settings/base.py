@@ -188,3 +188,6 @@ CKEDITOR_CONFIGS = {
         #  'skin': 'office2013',
     },
 }
+
+# This is a test runner necessary to celery tests
+TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'

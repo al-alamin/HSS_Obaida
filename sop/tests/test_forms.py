@@ -23,7 +23,5 @@ class MyFormTest(TestCase):
             },
             files={'file': file}
         )
-
-        # print(form)
         # print(form.errors)
         self.assertTrue(form.is_valid())

@@ -20,7 +20,7 @@ def send_mail_async(subject, body_email, to_email):
 @app.task
 def send_remainder_email(event_id):
     # Change and updat the body_email make it more customized
-    logger.info("\n\nGoing to send remainder email before ")
+    logger.info("\n\nGoing to send remainder email before event\n\n")
     event = Event.objects.get(id=int(event_id))
     registered_user_list = Registration.objects.filter(event=event)
     logger.info(registered_user_list)

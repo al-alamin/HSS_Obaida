@@ -100,6 +100,8 @@ class EventEmailAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
+        # Calling this method to keep admin.py keep out of logic as much as
+        # possible
         skype_event_group_email.apply_async((obj.id,))
 
 
