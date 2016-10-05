@@ -8,7 +8,10 @@ ADMIN_EMAILS = settings.ADMIN_EMAILS
 PRIMARY_ADMIN_EMAIL = settings.PRIMARY_ADMIN_EMAIL
 
 
-def send_mail(subject, body, to_email=ADMIN_EMAILS, from_email=PRIMARY_ADMIN_EMAIL, bcc=None, attachmets=None):
+def send_mail(subject, body, to_email=ADMIN_EMAILS,
+              from_email=PRIMARY_ADMIN_EMAIL, bcc=None, attachmets=None):
+    logger.info(
+        "In util.send_mail method sending mail to {0}".format(to_email))
     email_success = False
     email = EmailMessage(subject, body, from_email, to_email, bcc)
     if attachmets is not None:
