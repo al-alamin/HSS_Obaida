@@ -102,7 +102,8 @@ def schedule_background_email(event):
     # Creating tasking so that can revoke it later
     TaskList.objects.create(
         task_name=task_name, task_id=feedback_remainder_id.task_id)
-
+    # True means successfully finished executing
+    return True
 
 
 @app.task
