@@ -26,13 +26,13 @@
                         <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="">
                     </div>
                     <p>{{ blog.text|safe }}</p>
-
-                    <div class="fb-comments"
-                         data-href="http://www.mystudynotebook.com{{ request.path }}"
-                         data-numposts="5">
-                    </div>
+                    <hr>
                 </div>
-
+                <!-- facebook comment API -->
+                <div class="fb-comments margin-bottom-40"
+                     data-href="http://www.mystudynotebook.com{{ request.path }}"
+                     data-numposts="5">
+                </div>
             </div>
             <!-- Right Sidebar -->
             <div class="col-md-3">
