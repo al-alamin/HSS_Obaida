@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 
+from ckeditor.fields import RichTextField
+
 
 class Event(models.Model):
     event_type_choices = (
@@ -54,3 +56,12 @@ class Registration(models.Model):
     class Meta:
         unique_together = ["event", "attendee"]
         ordering = ('created',)
+
+
+class EventEmail(models.Model):
+    event = models.ForeignKey(Event)
+    email_subject = models.CharField(max_length=100)
+    email_body = RichTextField(max_length=500)
+
+    def __str__(self):
+        return self.event.title

@@ -34,6 +34,8 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
     url(r'^profile/', include('user_profile.urls')),
     url(r'^google_search/$', google_custom_search, name='google_search'),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
