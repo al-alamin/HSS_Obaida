@@ -1,6 +1,7 @@
+import logging
+
 from django.conf import settings
 from django.core.mail import EmailMessage
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -9,14 +10,14 @@ PRIMARY_ADMIN_EMAIL = settings.PRIMARY_ADMIN_EMAIL
 
 
 def send_mail(subject, body, to_email=ADMIN_EMAILS,
-              from_email=PRIMARY_ADMIN_EMAIL, bcc=None, attachmets=None):
+              from_email=PRIMARY_ADMIN_EMAIL, bcc=None, attachment=None):
     logger.info(
         "In util.send_mail method sending mail to {0}".format(to_email))
     email_success = False
     email = EmailMessage(subject, body, from_email, to_email, bcc)
-    if attachmets is not None:
+    if attachment is not None:
         email.attach(
-            attachmets.name, attachmets.read(), attachmets.content_type)
+            attachment.name, attachment.read(), attachment.content_type)
     try:
         email.send()
     except Exception as e:

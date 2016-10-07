@@ -104,10 +104,9 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Belize' # This is UTC-6
+TIME_ZONE = 'America/Chicago'  # UTC -5 or -6 depending on DST. Texas time
 
 USE_I18N = True
-
 USE_L10N = True
 
 USE_TZ = True
@@ -152,20 +151,15 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-
-
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 CKEDITOR_MEDIA_URL = '/static/third-party/ckeditor'
 CKEDITOR_UPLOAD_PATH = "media/uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
-
 CKEDITOR_BROWSE_SHOW_DIRS = True
 CKEDITOR_RESTRICT_BY_USER = True
-CKEDITOR_REQUIRE_STAFF=False
+CKEDITOR_REQUIRE_STAFF = False
 AWS_QUERYSTRING_AUTH = False
-
-
 
 CKEDITOR_CONFIGS = {
     'awesome_ckeditor': {
@@ -176,16 +170,12 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'basic',
         'height': 300,
         'width': '100%',
-        # # 'styles': { 'background-color': 'red' },
-        #  'skin': 'office2013',
     },
 
     'text_field': {
         'toolbar': 'basic',
         'height': 100,
         'width': '100%',
-        # # 'styles': { 'background-color': 'red' },
-        #  'skin': 'office2013',
     },
 }
 

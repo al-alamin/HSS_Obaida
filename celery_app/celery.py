@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-import os
-
 from celery import Celery
 from django.conf import settings  # noqa
 
@@ -19,10 +17,12 @@ app.conf.update(
     CELERY_TASK_SERIALIZER='json',
     CELERY_ACCEPT_CONTENT=['json'],  # Ignore other content
     CELERY_RESULT_SERIALIZER='json',
-    CELERY_TIMEZONE='America/Belize',  # UTC-6
     CELERY_ENABLE_UTC=True,
 )
 
 app.conf.update(
     CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
 )
+
+# run celery worker from command line
+# celery -A celery_app worker -l info

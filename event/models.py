@@ -36,7 +36,12 @@ class Event(models.Model):
     @property
     def duration(self):
         time_diff = self.end_time - self.start_time
-        return time_diff.total_seconds() / 3600  # difference in hour
+        return time_diff.total_seconds() / 60  # difference in minute
+
+    @property
+    def name_task(self):
+        # for unique parent task name to manage email scheduling
+        return '-'.join((type(self).__name__, str(self.id)))
 
     class Meta:
         ordering = ('start_time',)
