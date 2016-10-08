@@ -51,7 +51,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'celery_app',
-    'djcelery',
+    # 'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (

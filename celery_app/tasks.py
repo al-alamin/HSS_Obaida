@@ -41,7 +41,7 @@ def send_reminder_email(event_id, is_feedback_email):
             subject = SUBJECT_FEEDBACK
             body_email = BODY_FEEDBACK.format(reg_user.attendee.first_name, event.title)
         else:
-            event_start_time = event.start_time.astimezone(BD_TZ).stftime(time_format)
+            event_start_time = event.start_time.astimezone(BD_TZ).strftime(time_format)
             subject = SUBJECT_REMINDER.format(event.title)
             body_email = BODY_REMINDER.format(reg_user.attendee.first_name, event.title,
                                               event_start_time, event.duration)
