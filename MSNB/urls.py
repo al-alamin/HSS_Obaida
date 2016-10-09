@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^', include('home.urls')),
     url(r'^faq/', include('faq.urls')),
     url(r'^sop/', include('sop.urls')),
+    url(r'^common/', include('common.urls')),
     # url(r'^to_do/', include('to_do.urls')),
     url(r'^skype/', include('skype_consultancy.urls') ),
     url(r'^contactus/', include('contact_us.urls')),
