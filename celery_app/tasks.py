@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import logging
 
-from celery import shared_task
+from django.utils.timezone import now
 
 from celery_app.background_email_constants import (BODY_REMINDER, BODY_FEEDBACK, SUBJECT_REMINDER, SUBJECT_FEEDBACK,
                                                    BD_TZ, time_format)
@@ -73,6 +73,11 @@ def schedule_background_email(event, start_timedelta, expire_timedelta, is_feedb
     :return:
     """
     reminder_start_time = event.end_time + start_timedelta if is_feedback_email else event.start_time - start_timedelta
+
+    # if the scheduled time is already in past, does n't make sense to schedule it
+    if reminder_start_time < now():
+        return
+
     reminder_expire_time = reminder_start_time + expire_timedelta
 
     reminder_task_id = send_reminder_email.apply_async((event.id, is_feedback_email), eta=reminder_start_time,
@@ -92,21 +97,9 @@ def skype_event_group_email(event_email_id):
     """
     event_email = EventEmail.objects.get(id=event_email_id)
     registered_user_list = Registration.objects.filter(event=event_email.event)
-    logger.info(registered_user_list)
     for reg_user in registered_user_list:
         logger.info("\n\n group email for loop\n")
         to_email = [reg_user.attendee.email, ]
         subject = event_email.email_subject
         body_email = event_email.email_body
         send_mail(subject, body_email, to_email)
-
-
-# This task is for practice purpose
-# Shared tasks are not assotiated with app so they are easy to import from
-# command line
-
-
-@shared_task
-def add(x=4, y=5):
-    print("\n\n****** task add method")
-    return x + y

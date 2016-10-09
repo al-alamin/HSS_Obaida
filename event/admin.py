@@ -2,6 +2,7 @@ import logging
 from datetime import timedelta
 
 from django.contrib import admin
+from django.utils.timezone import now
 
 from celery_app.background_email_constants import FIRST_REMINDER_HOUR, SECOND_REMINDER_MINUTE, FEEDBACK_REMINDER_MINUTE
 from celery_app.tasks import schedule_background_email, skype_event_group_email, delete_previous_tasks
@@ -37,6 +38,11 @@ class EventAdmin(admin.ModelAdmin):
         """
 
         obj.save()
+
+        # don't want to change anything if event is old. leave it as it is
+        if obj.start_time < now():
+            return
+
         # In case of editing the event deleting Previously scheduled tasks
         delete_previous_tasks(obj)
 
