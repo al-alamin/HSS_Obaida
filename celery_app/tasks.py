@@ -14,11 +14,10 @@ from event.models import Registration, Event, EventEmail
 logger = logging.getLogger(__name__)
 
 
-@app.task
 def send_mail_async(subject, body_email, to_email):
     # This is just a helper function to send email async.
     # See the output in the worker process console
-    return send_mail(subject, body_email, to_email)
+    return send_mail.delay(subject, body_email, to_email)
 
 
 @app.task

@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 
 ADMIN_EMAILS = ['support@mystudynotebook.com', 'tareqbuet@gmail.com', ]
 PRIMARY_ADMIN_EMAIL = 'support@mystudynotebook.com'
+SECONDARY_ADMIN_EMAIL = 'tareqbuet@gmail.com'
 
 # Application definition
 
