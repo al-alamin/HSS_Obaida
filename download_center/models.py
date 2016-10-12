@@ -12,7 +12,7 @@ class Department(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
-        self.name
+        return self.name
 
 
 class Document(models.Model):
@@ -23,4 +23,4 @@ class Document(models.Model):
     download_link = models.URLField()
 
     def __str__(self):
-        return '-'.join((self.type.name, self.department.name, self.id))
+        return '-'.join((self.type.name, self.department.name, str(self.id)))

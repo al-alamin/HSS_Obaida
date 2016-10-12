@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'celery_app',
+    'download_center',
     # 'djcelery',
 )
 
