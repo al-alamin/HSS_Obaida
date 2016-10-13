@@ -24,14 +24,18 @@
                         </thead>
                         <tbody>
                         {% for doc in type.document_set.all %}
-                            <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ doc.department }}</td>
-                                <td>{{ doc.degree }}</td>
-                                <td>{{ doc.comment }}</td>
-                                <td><a href="{{ doc.download_link }}" target="_blank">Download</a>
-                                </td>
-                            </tr>
+                            {% if department_searching and doc.department.id != department_searching.id %}
+                                <!-- just skip if department id does not match-->
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ doc.department }}</td>
+                                    <td>{{ doc.degree }}</td>
+                                    <td>{{ doc.comment }}</td>
+                                    <td><a href="{{ doc.download_link }}" target="_blank">Download</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>

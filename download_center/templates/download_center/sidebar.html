@@ -1,8 +1,15 @@
 <h3>Filter Department</h3>
 <ul class="list-unstyled">
+    <li>
+        <a href="{% url 'download' %}"
+           class="{% if request.resolver_match.url_name == "download" %}color-green{% endif %}">
+            All
+        </a>
+    </li>
     {% for dept in departments %}
         <li>
-            <a href="{% url 'download_search_department' dept.id %}">
+            <a href="{% url 'download_search_department' dept.id %}"
+               class="{% if dept.id == department_searching.id %}color-green{% endif %}">
                 {{ dept.name }}
             </a>
         </li>
