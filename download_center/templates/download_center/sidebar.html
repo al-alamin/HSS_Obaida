@@ -1,0 +1,10 @@
+<h3>Filter Department</h3>
+<ul class="list-unstyled">
+    {% for dept in departments %}
+        <li>
+            <a href="{% url 'download_search_department' dept.id %}">
+                {{ dept.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,42 @@
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        {% for type in types %}
+            <li class="{% if forloop.first %}active {% endif %}">
+                <!-- watch out the href content. It must point to target id-->
+                <a href="#{{ type.name }}" data-toggle="tab">{{ type.name|upper }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        <!-- tab content for every type-->
+        {% for type in types %}
+            <div class="tab-pane fade in {% if forloop.first %}active{% endif %}" id="{{ type.name }}">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Intended Department</th>
+                            <th>Intended Degree</th>
+                            <th>Comment</th>
+                            <th>Download Link</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for doc in type.document_set.all %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ doc.department }}</td>
+                                <td>{{ doc.degree }}</td>
+                                <td>{{ doc.comment }}</td>
+                                <td><a href="{{ doc.download_link }}" target="_blank">Download</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
