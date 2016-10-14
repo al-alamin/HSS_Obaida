@@ -4,11 +4,13 @@
 
 import logging
 
+from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from social.apps.django_app.default.models import UserSocialAuth
 
-from common.utils import send_mail
+from celery_app.background_email_constants import body_new_user
+from celery_app.tasks import send_mail_async
 
 logger = logging.getLogger(__name__)
 
@@ -26,11 +28,6 @@ def new_user_signal_handler(sender, **kwargs):
 
         # @Note last_name, first_name is not available in user model
         #  when UserSocialAuth instance is created
-        info = """
-                A new user created in MSNB
-                username : {0}
-                user email : {1}
-                provider: {2}
-                """.format(user.username, user.email, social_user.provider)
-        logger.info(info)
-        send_mail(subject=subject, body=info)
+        mail_body = body_new_user.format(user.username, user.email, social_user.provider)
+        to_email = [user.email, settings.SECONDARY_ADMIN_EMAIL]
+        send_mail_async(subject=subject, body_email=mail_body, to_email=to_email)

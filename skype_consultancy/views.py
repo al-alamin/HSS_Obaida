@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
-
 from event.models import Event, Registration
 from .forms import EventRegistrationForm, EventRegistrationDeleteForm
 
@@ -25,19 +24,18 @@ def skype(request):
         if request.method == 'POST' and event.is_registration_open:
             form = EventRegistrationForm(request.POST)
             if form.is_valid():
-                reg_success, email_success = form.save_and_mail(user=user, event=event)
+                reg_success = form.save_and_mail(user=user, event=event)
                 if reg_success:
                     messages.success(request,
-                                     'Congratulations! You are registered for the event',
+                                     """Congratulations! You are registered for the event.
+                                      A confirmation email will be sent to your email address momentarily""",
                                      extra_tags='alert-success')
-                if email_success:
-                    messages.info(request,
-                                  'A confirmation email is sent to your email address',
-                                  extra_tags='alert-info')
+                else:
+                    messages.error(request, "Something went wrong. Please try again later", extra_tags='alert-danger')
         else:
             form = EventRegistrationForm()
 
-        # check if the current user is registered for this event
+        # Generate the delete form if user is registered
         if not user.is_anonymous():
             try:
                 reg = Registration.objects.get(event=event, attendee=user)

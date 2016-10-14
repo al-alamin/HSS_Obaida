@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 
 ADMIN_EMAILS = ['support@mystudynotebook.com', 'tareqbuet@gmail.com', ]
 PRIMARY_ADMIN_EMAIL = 'support@mystudynotebook.com'
+SECONDARY_ADMIN_EMAIL = 'tareqbuet@gmail.com'
 
 # Application definition
 
@@ -51,7 +52,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'celery_app',
-    'djcelery',
+    # 'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (

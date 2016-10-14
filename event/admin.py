@@ -2,9 +2,10 @@ import logging
 from datetime import timedelta
 
 from django.contrib import admin
+from django.utils.timezone import now
 
-from celery_app.background_email_constants import FIRST_REMINDER_HOUR,SECOND_REMINDER_MINUTE,FEEDBACK_REMINDER_MINUTE
-from celery_app.tasks import schedule_background_email, add, skype_event_group_email, delete_previous_tasks
+from celery_app.background_email_constants import FIRST_REMINDER_HOUR, SECOND_REMINDER_MINUTE, FEEDBACK_REMINDER_MINUTE
+from celery_app.tasks import schedule_background_email, skype_event_group_email, delete_previous_tasks
 from event.models import Event, Registration, EventEmail
 
 logger = logging.getLogger(__name__)
@@ -37,6 +38,11 @@ class EventAdmin(admin.ModelAdmin):
         """
 
         obj.save()
+
+        # don't want to change anything if event is old. leave it as it is
+        if obj.start_time < now():
+            return
+
         # In case of editing the event deleting Previously scheduled tasks
         delete_previous_tasks(obj)
 
@@ -45,7 +51,7 @@ class EventAdmin(admin.ModelAdmin):
             event=obj,
             start_timedelta=timedelta(hours=FIRST_REMINDER_HOUR),
             expire_timedelta=timedelta(hours=3),
-            is_feedback_email=False 
+            is_feedback_email=False
             # False meaning reminder email before event
         )
 
@@ -66,10 +72,6 @@ class EventAdmin(admin.ModelAdmin):
             is_feedback_email=True
             # False meaning reminder email after event
         )
-
-        # This is for testing and debug purpose can be deleted in production
-        # site
-        add.apply_async((15, 5), countdown=5)
 
 
 class EventEmailAdmin(admin.ModelAdmin):

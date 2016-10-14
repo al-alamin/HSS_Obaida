@@ -20,9 +20,10 @@ app.conf.update(
     CELERY_ENABLE_UTC=True,
 )
 
-app.conf.update(
-    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
-)
+# sqlite is not really capable of handling result backend. Will unlock the feature when moved to postgre
+# app.conf.update(
+#     CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
+# )
 
 # run celery worker from command line
 # celery -A celery_app worker -l info

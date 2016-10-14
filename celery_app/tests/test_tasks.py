@@ -22,7 +22,7 @@ class SendMailAsyncTest(TestCase):
         self.from_email = PRIMARY_ADMIN_EMAIL
 
     def test_send_mail_async(self):
-        response = send_mail_async.delay(
+        response = send_mail_async(
             self.subject, self.body, self.to_email)
         self.assertTrue(response)
 
