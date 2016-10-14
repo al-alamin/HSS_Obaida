@@ -1,56 +1,22 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'unify_assets/css/pages/page_search_inner.css' %}">
+
 {% block content %}
-    <link rel="stylesheet" href="{% static 'unify_assets/css/pages/page_search_inner.css' %}">
-    <!--=== Breadcrumbs ===-->
-    <div class="breadcrumbs breadcrumbs-dark">
-        <div class="container">
-            <h1 class="pull-left">Search Results for <span class="text-border">{{ search_for }}</span></h1>
-        </div>
-    </div>
-    <!--=== End Breadcrumbs ===-->
+    {% include "faq/search_breadcrumb.html" %}
     {% include "faq/search_block.html" %}
     <!--=== Search Results ===-->
     <div class="container s-results margin-bottom-50">
         <div class="row">
+            <!-- sidebar-->
             <div class="col-md-2 hidden-xs related-search">
-                <div class="row">
-                    {% for type in types %}
-                        <div class="col-md-12 col-sm-4">
-                            <h3>{{ type.name }}</h3>
-                            <ul class="list-unstyled">
-                                {% for cat in type.category_set.all %}
-                                    <li><a href="{% url 'faq_search_cat' cat.id %}">{{ cat.name }}</a></li>
-                                {% endfor %}
-                                {% for tag in type.tag_set.all %}
-                                    <li><a href="{% url 'faq_search_tag' tag.id %}">{{ tag.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            <hr>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div> <!--/col-md-2-->
-            <div class="col-md-10">
-                <span class="results-number">TOTAL {{ search_result.count }} RESULTS FOUND</span>
-                {% for question in search_result %}
-                    <!-- Begin Inner Results -->
-                    <div class="inner-results">
-                        <h3>{{ question.text | safe }}</h3>
-                        <ul class="list-inline up-ul">
-                            {% for cat in question.category.all %}
-                                <li><a href="{% url 'faq_search_cat' cat.id %}">{{ cat.name }}</a></li>
-                            {% endfor %}
-                            {% for tag in question.tag.all %}
-                                <li><a href="{% url 'faq_search_tag' tag.id %}">{{ tag.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                        <p>{{ question.ans | safe }}</p>
-                    </div>
-                    <!-- end Inner Results -->
+                {% include 'faq/search_sidebar.html' %}
+            </div>
+            <!-- /sidebar /col-md-2-->
 
-                    <hr>
-                {% endfor %}
+            <!-- main content-->
+            <div class="col-md-10">
+                {% include 'faq/search_main_content.html' %}
             </div>
         </div>
     </div>
