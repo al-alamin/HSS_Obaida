@@ -39,11 +39,14 @@ def send_reminder_email(event_id, is_feedback_email):
 
         if is_feedback_email:
             subject = SUBJECT_FEEDBACK
-            body_email = BODY_FEEDBACK.format(reg_user.attendee.first_name, event.title)
+            body_email = BODY_FEEDBACK.format(
+                reg_user.attendee.first_name, event.title)
         else:
-            event_start_time = event.start_time.astimezone(BD_TZ).stftime(time_format)
+            event_start_time = event.start_time.astimezone(
+                BD_TZ).stftime(time_format)
             subject = SUBJECT_REMINDER.format(event.title)
-            body_email = BODY_REMINDER.format(reg_user.attendee.first_name, event.title,
+            body_email = BODY_REMINDER.format(reg_user.attendee.first_name,
+                                              event.title,
                                               event_start_time, event.duration)
 
         send_mail(subject, body_email, to_email)
@@ -60,10 +63,12 @@ def delete_previous_tasks(event):
         for task in task_list:
             app.control.revoke(task.celery_task_id)
             task.delete()
-            logger.info("Deleted task {0} of parent task{1}".format(task.celery_task_id, event.name_task))
+            logger.info("Deleted task {0} of parent task{1}".format(
+                task.celery_task_id, event.name_task))
 
 
-def schedule_background_email(event, start_timedelta, expire_timedelta, is_feedback_email):
+def schedule_background_email(event, start_timedelta,
+                              expire_timedelta, is_feedback_email):
     """
 
     :param event:
@@ -72,13 +77,18 @@ def schedule_background_email(event, start_timedelta, expire_timedelta, is_feedb
     :param is_feedback_email:
     :return:
     """
-    reminder_start_time = event.end_time + start_timedelta if is_feedback_email else event.start_time - start_timedelta
+    reminder_start_time = event.end_time + \
+        start_timedelta if is_feedback_email else event.start_time - \
+        start_timedelta
     reminder_expire_time = reminder_start_time + expire_timedelta
 
-    reminder_task_id = send_reminder_email.apply_async((event.id, is_feedback_email), eta=reminder_start_time,
+    reminder_task_id = send_reminder_email.apply_async((event.id,
+                                                        is_feedback_email),
+                                                       eta=reminder_start_time,
                                                        expires=reminder_expire_time)
     # Creating tasking so that can revoke it later
-    TaskList.objects.create(parent_task_name=event.name_task, celery_task_id=reminder_task_id.task_id)
+    TaskList.objects.create(
+        parent_task_name=event.name_task, celery_task_id=reminder_task_id.task_id)
 
     return True
 
