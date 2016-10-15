@@ -292,3 +292,7 @@
 .border-right{
       border-right: 1px solid #eee
 }
+
+a:hover.no-hover-text-decoration{
+	text-decoration: none !important;
+}

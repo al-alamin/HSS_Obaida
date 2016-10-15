@@ -1,7 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Type, Department, Document
+
+from .models import Type, Department
 
 
+@login_required()
 def download(request, department_id=None):
     types = Type.objects.all().order_by('name').prefetch_related()
     departments = Department.objects.all().order_by('name')
