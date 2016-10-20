@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=25, unique=True,help_text='e,g; SOP, Resume, Mail, Others')
+    name = models.CharField(max_length=25, unique=True, help_text='e,g; SOP, Resume, Mail, Others')
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Department(models.Model):
 
 class Document(models.Model):
     degree_choices = (
-        ('Undergrad','Undergrad'),
+        ('Undergrad', 'Undergrad'),
         ('Masters', 'Masters'),
         ('PhD', 'PhD'),
     )
@@ -27,6 +27,9 @@ class Document(models.Model):
     degree = models.CharField(choices=degree_choices, max_length=20)
     comment = RichTextField(max_length=500, blank=True)
     download_link = models.URLField()
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return '-'.join((self.type.name, self.department.name, str(self.id)))

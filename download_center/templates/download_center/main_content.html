@@ -19,7 +19,7 @@
                             <th>Intended Department</th>
                             <th>Intended Degree</th>
                             <th>Comment</th>
-                            <th>Download Link</th>
+                            <th>Link</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,8 +31,8 @@
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ doc.department }}</td>
                                     <td>{{ doc.degree }}</td>
-                                    <td>{{ doc.comment }}</td>
-                                    <td><a href="{{ doc.download_link }}" target="_blank">Download</a>
+                                    <td>{{ doc.comment|safe }}</td>
+                                    <td><a href="{{ doc.download_link }}" target="_blank">Link</a>
                                     </td>
                                 </tr>
                             {% endif %}

@@ -6,7 +6,7 @@ from .models import Type, Department
 
 @login_required()
 def download(request, department_id=None):
-    types = Type.objects.all().order_by('name').prefetch_related()
+    types = Type.objects.all().order_by('id').prefetch_related()
     departments = Department.objects.all().order_by('name')
     context = {
         'types': types,
