@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 
 
@@ -24,7 +25,7 @@ class Document(models.Model):
     type = models.ForeignKey(Type)
     department = models.ForeignKey(Department)
     degree = models.CharField(choices=degree_choices, max_length=20)
-    comment = models.CharField(max_length=500, blank=True)
+    comment = RichTextField(max_length=500, blank=True)
     download_link = models.URLField()
 
     def __str__(self):

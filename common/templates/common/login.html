@@ -11,12 +11,14 @@
                         <h2>Login to your account</h2>
                     </div>
 
-                    <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_url }}" class="no-hover-text-decoration">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_url }}"
+                       class="no-hover-text-decoration">
                         <button class="btn btn-block btn-googleplus margin-bottom-10">
                             <i class="fa fa-google"></i> Login With Google
                         </button>
 
                     </a>
+
                     <a href="{% url 'social:begin' 'facebook' %}?next={{ next_url }}" class="no-hover-text-decoration">
                         <button class="btn btn-block btn-facebook margin-bottom-10">
                             <i class="fa fa-facebook"></i> Login With Facebook

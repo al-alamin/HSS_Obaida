@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 class BlogTag(models.Model):
@@ -27,7 +28,7 @@ class Post(models.Model):
     post_type = models.CharField(choices=post_type_choices, max_length=30)
     category = models.ManyToManyField(BlogCategory)
     tag = models.ManyToManyField(BlogTag)
-    text = models.TextField(max_length=50000)
+    text = RichTextField(max_length=50000, config_name='basic')
     featured_img = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
                                      help_text='This image will be used in single blog page')
     thumbnail = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
