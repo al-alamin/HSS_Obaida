@@ -26,7 +26,7 @@ class Document(models.Model):
     department = models.ForeignKey(Department)
     degree = models.CharField(choices=degree_choices, max_length=20)
     comment = RichTextField(max_length=500, blank=True)
-    download_link = models.URLField()
+    download_link = models.URLField(unique=True)
 
     class Meta:
         ordering = ['-id']

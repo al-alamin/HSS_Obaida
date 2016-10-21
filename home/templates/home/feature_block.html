@@ -1,90 +1,155 @@
 {% load staticfiles %}
 <div class="container content-sm">
+    <!-- Portfolio Box link https://htmlstream.com/preview/unify-v1.9.6/page_home10.html-->
     <ul class="list-unstyled row portfolio-box">
-        <a href="{% url 'decision_making' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/1.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Decision making</h3></div>
-                <p>
-                    Am I ready to apply? What do I need to decide?
-                </p>
 
-            </li>
-        </a>
-        <a href="{% url 'preparation' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/2.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Preparation</h3></div>
-                <p>What tools do I need at my hand before applying?</p>
-            </li>
-        </a>
-        <a href="{% url 'standard_exam' %}">
-            <li class="col-sm-3">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/exam.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Standard Exam</h3></div>
-                <p>Help preparing for GRE, IELTS and TOEFL.</p>
-            </li>
-        </a>
-        <a href="{% url 'sop_review' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/sop.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Review your SOP</h3></div>
-                <p>Making an impression on the admission review committee.</p>
-            </li>
-        </a>
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'decision_making' %}">
+                <img class="full-width img-responsive" src="{% static 'home/1.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Decision making</h3>
+            </div>
+            <p>
+                <a href="{% url 'decision_making' %}">
+                    Am I ready to apply? What do I need to decide?
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'preparation' %}">
+                <img class="full-width img-responsive" src="{% static 'home/2.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Preparation</h3>
+            </div>
+            <p>
+                <a href="{% url 'preparation' %}">
+                    What tools do I need at my hand before applying?
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'standard_exam' %}">
+                <img class="full-width img-responsive" src="{% static 'home/exam.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Standard Exam</h3>
+            </div>
+            <p>
+                <a href="{% url 'standard_exam' %}">
+                    Help preparing for GRE, IELTS and TOEFL.
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'sop_review' %}">
+                <img class="full-width img-responsive" src="{% static 'home/sop.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Review Your SOP</h3>
+            </div>
+            <p>
+                <a href="{% url 'sop_review' %}">
+                    Making an impression on the admission review committee.
+                </a>
+            </p>
+        </li>
 
     </ul>
-    <ul class="list-unstyled row portfolio-box">
-        <a href="{% url 'application' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/4.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Application</h3></div>
-                <p>How to apply? What documents are needed? Whom should I email? </p>
-            </li>
-        </a>
-        <a href="{% url 'under_construction_page' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/plane.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Going abroad</h3></div>
-                <p>I have got the admission letter- now what?</p>
-            </li>
-        </a>
-        <a href="{% url 'under_construction_page' %}">
-            <li class="col-sm-3">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/todo.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">
-                    What’s the first thing to do after coming abroad
-                </h3></div>
-                <p>How to survive in the unknown country and culture?</p>
-            </li>
-        </a>
 
-        <a href="{% url 'skype' %}">
-            <li class="col-sm-3 md-margin-bottom-50">
-                <div class="thumbnail-img">
-                    <img class="img-responsive" src="{% static 'home/question.jpg' %}" alt="" style="height: 180px">
-                </div>
-                <div class="headline-left margin-bottom-10"><h3 class="headline-brd">Join our Skype Q&A session</h3>
-                </div>
-                <p> I have questions and could not find the answer.
-                    Who can help me with that? Join our Skype Q&A session. Our advisors will answer your question.
-                </p>
-            </li>
-        </a>
+    <ul class="list-unstyled row portfolio-box">
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'application' %}">
+                <img class="full-width img-responsive" src="{% static 'home/4.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Application</h3>
+            </div>
+            <p>
+                <a href="{% url 'application' %}">
+                    How to apply? What documents are needed? Whom should I email?
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'under_construction_page' %}">
+                <img class="full-width img-responsive" src="{% static 'home/plane.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Going abroad</h3>
+            </div>
+            <p>
+                <a href="{% url 'under_construction_page' %}">
+                    I have got the admission letter- now what?
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'under_construction_page' %}">
+                <img class="full-width img-responsive" src="{% static 'home/todo.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">What’s the first thing to do after coming abroad</h3>
+            </div>
+            <p>
+                <a href="{% url 'under_construction_page' %}">
+                    How to survive in the unknown country and culture?
+                </a>
+            </p>
+        </li>
+
+        <li class="col-sm-3 md-margin-bottom-50">
+            <a class="thumbnail fancybox" href="{% url 'skype' %}">
+                <img class="full-width img-responsive" src="{% static 'home/question.jpg' %}" alt="">
+                <span class="portfolio-box-in rounded-x">
+                    <i class="icon-link"></i>
+                </span>
+            </a>
+
+            <div class="headline-left margin-bottom-10">
+                <h3 class="headline-brd">Join our Skype Q&A session</h3>
+            </div>
+            <p>
+                <a href="{% url 'skype' %}">
+                    I have questions and could not find the answer.Who can help me with that?
+                    Join our Skype Q&A session.
+                </a>
+            </p>
+        </li>
     </ul>
 </div>
 <!-- End Portfolio Box -->
