@@ -9,3 +9,5 @@ bash_commands/
 bash_commands
 server_statics
 settings/local.py
+*.fuse_hidden
+*.fuse_hidden*
