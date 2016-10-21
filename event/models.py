@@ -1,8 +1,7 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
-
-from ckeditor.fields import RichTextField
 
 
 class Event(models.Model):
@@ -15,7 +14,7 @@ class Event(models.Model):
     event_type = models.CharField(choices=event_type_choices, max_length=30,
                                   help_text='For skype session select "skype_session".')
     location = models.CharField(max_length=500, null=True, blank=True)
-    description = models.CharField(max_length=5000, null=True, blank=True)
+    description = models.TextField(max_length=5000, null=True, blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     registration_limit = models.PositiveSmallIntegerField(null=True,
@@ -64,6 +63,9 @@ class Registration(models.Model):
 
 
 class EventEmail(models.Model):
+    """
+    required for sending email to all registered users from admin panel
+    """
     event = models.ForeignKey(Event)
     email_subject = models.CharField(max_length=100)
     email_body = RichTextField(max_length=500)

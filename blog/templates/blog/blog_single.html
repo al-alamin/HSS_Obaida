@@ -29,10 +29,7 @@
                     <hr>
                 </div>
                 <!-- facebook comment API -->
-                <div class="fb-comments margin-bottom-40"
-                     data-href="http://www.mystudynotebook.com{{ request.path }}"
-                     data-numposts="5">
-                </div>
+                {% include 'common/fb_comment.html' %}
             </div>
             <!-- Right Sidebar -->
             <div class="col-md-3">

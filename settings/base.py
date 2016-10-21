@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'ckeditor_uploader',
     'celery_app',
+    'download_center',
     # 'djcelery',
 )
 
@@ -162,20 +163,15 @@ CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_REQUIRE_STAFF = False
 AWS_QUERYSTRING_AUTH = False
 
+# example example_field = RichTextField(config_name='basic')
 CKEDITOR_CONFIGS = {
-    'awesome_ckeditor': {
-        'toolbar': 'Basic',
-    },
-
     'default': {
-        'toolbar': 'basic',
-        'height': 300,
+        'height': 150,
         'width': '100%',
     },
-
-    'text_field': {
+    'basic': {
         'toolbar': 'basic',
-        'height': 100,
+        'height': 250,
         'width': '100%',
     },
 }

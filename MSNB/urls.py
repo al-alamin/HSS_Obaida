@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-
+from common.views import login
 from home.views import google_custom_search
 
 urlpatterns = [
@@ -29,13 +29,16 @@ urlpatterns = [
     url(r'^sop/', include('sop.urls')),
     url(r'^common/', include('common.urls')),
     # url(r'^to_do/', include('to_do.urls')),
-    url(r'^skype/', include('skype_consultancy.urls') ),
+    url(r'^skype/', include('skype_consultancy.urls')),
     url(r'^contactus/', include('contact_us.urls')),
     url(r'^about_us/', include('about_us.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^profile/', include('user_profile.urls')),
+    url(r'^download/', include('download_center.urls')),
     url(r'^google_search/$', google_custom_search, name='google_search'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    # djangos default url for login
+    url(r'^accounts/login/$', login, name='login'),
 
 ]
 if settings.DEBUG is True:

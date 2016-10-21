@@ -1,0 +1,14 @@
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs breadcrumbs-dark">
+    <div class="container">
+        <h1 class="pull-left">
+            {% if is_single %}
+                View / Post Comments For
+            {% else %}
+                Search Results For
+            {% endif %}
+            <span class="text-border">{{ search_for }}</span>
+        </h1>
+    </div>
+</div>
+<!--=== End Breadcrumbs ===-->

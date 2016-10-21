@@ -1,0 +1,16 @@
+<div class="row">
+    {% for type in types %}
+        <div class="col-md-12 col-sm-4">
+            <h3>{{ type.name }}</h3>
+            <ul class="list-unstyled">
+                {% for cat in type.category_set.all %}
+                    <li><a href="{% url 'faq_search_cat' cat.id %}">{{ cat.name }}</a></li>
+                {% endfor %}
+                {% for tag in type.tag_set.all %}
+                    <li><a href="{% url 'faq_search_tag' tag.id %}">{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <hr>
+        </div>
+    {% endfor %}
+</div>

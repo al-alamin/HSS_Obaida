@@ -1,0 +1,25 @@
+{% extends "common/base.html" %}
+{% load staticfiles %}
+{% block content %}
+    {% include "download_center/topblock.html" %}
+    <div class="container content-sm ">
+        <div class="row">
+
+            <!-- sidebar-->
+            <div class="col-md-3 bg-color-light">
+                {% include "download_center/sidebar.html" %}
+            </div>
+
+            <!-- main content-->
+            <div class="col-md-9 ">
+                {% if department_searching %}
+                    <div class="alert alert-success fade in">
+                        Filtered for <span class="text-border">{{ department_searching.name }}</span>
+                    </div>
+                {% endif %}
+                {% include "download_center/main_content.html" %}
+            </div>
+        </div>
+    </div>
+    <!-- End Tab v2 -->
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'unify_assets/css/pages/page_log_reg_v1.css' %}">
+    <link rel="stylesheet" href="{% static 'unify_assets/plugins/brand-buttons/brand-buttons.css' %}">
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                <div class="reg-page">
+                    <div class="reg-header">
+                        <h2>Login to your account</h2>
+                    </div>
+
+                    <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ next_url }}"
+                       class="no-hover-text-decoration">
+                        <button class="btn btn-block btn-googleplus margin-bottom-10">
+                            <i class="fa fa-google"></i> Login With Google
+                        </button>
+
+                    </a>
+
+                    <a href="{% url 'social:begin' 'facebook' %}?next={{ next_url }}" class="no-hover-text-decoration">
+                        <button class="btn btn-block btn-facebook margin-bottom-10">
+                            <i class="fa fa-facebook"></i> Login With Facebook
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+        </div><!--/row-->
+    </div>
+{% endblock %}

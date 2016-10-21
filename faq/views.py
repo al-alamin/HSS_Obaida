@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-
 from common import models
 from .forms import FaqSearchForm
 from .models import Question
@@ -12,18 +11,19 @@ def faq(request):
     faq_search_form = FaqSearchForm()
     context = {'types': types,
                'recent_q': recent_q,
-               'popular_q':popular_q,
+               'popular_q': popular_q,
                'faq_search_form': faq_search_form,
                }
     return render(request, 'faq/faq.html', context)
 
 
-def search_result(request, cat_id=None, tag_id=None):
+def search_result(request, question_id=None, cat_id=None, tag_id=None):
     # News and Blog should not be added in FAQ page
     # used to populate categories and tags arranged by their type
     types = models.Type.objects.all().exclude(name='News')
     faq_search_form = FaqSearchForm()
     search_for = ''
+    is_single = False
     if request.method == 'POST':
         faq_search_form = FaqSearchForm(request.POST)
         if faq_search_form.is_valid():
@@ -33,6 +33,10 @@ def search_result(request, cat_id=None, tag_id=None):
             else:
                 redirect('faq')
 
+    elif question_id is not None:
+        search_result = Question.objects.filter(id=question_id)
+        search_for = 'Single Question'
+        is_single = True
     elif cat_id is not None:
         search_result = Question.objects.filter(category__id=cat_id)
         search_for = models.Category.objects.get(id=cat_id).name + ' Category'
@@ -47,5 +51,6 @@ def search_result(request, cat_id=None, tag_id=None):
         'search_result': search_result,
         'types': types,
         'search_for': search_for,
+        'is_single': is_single
     }
     return render(request, 'faq/search_result.html', context)
