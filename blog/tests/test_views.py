@@ -13,21 +13,14 @@ logger = logging.getLogger(__name__)
 class BlogTest(TestCase):
 
     def setUp(self):
-        self.blog_tag = BlogTag.objects.create(name="tag11")
-        self.blog_category = BlogCategory.objects.create(name="cat11")
-        self.user = User.objects.create_user("alamin11", "a@gmail.com")
-        self.post = Post(
-            title="titlexyz", author=self.user, post_type="blog", text="text")
-        self.post.save()
-        self.post.tag.add(self.blog_tag)
-        self.post.category.add(self.blog_category)
-        self.post.save()
+        self.post, self.blog_tag, self.blog_category = createBlog()
 
     def test_blog_view_renders_blog_template(self):
         response = self.client.get(reverse("blog"))
         self.assertTemplateUsed(response, 'blog/blog.html')
         logger.info(response.status_code)
 
+    # This test'll try to make sure if the template is loaded properly
     def test_blog_page_contains_blog(self):
         response = self.client.get(reverse("blog"))
         self.assertContains(response, self.post.title)
@@ -35,48 +28,33 @@ class BlogTest(TestCase):
         self.assertContains(response, self.blog_tag)
         self.assertContains(response, self.blog_category)
 
-#     def test_faq_page_uses_question_model(self):
-#         response = self.client.get('/faq/')
-#         if (Question.objects.all().count() > 0):
-#             self.assertIsInstance(
-#                 response.context['recent_q'], models.Question)
-#         # question = Question.objects.create(text="new question")
 
+class BlogSingleTest(TestCase):
 
-class TestBlogSingle(TestCase):
+    def setUp(self):
+        self.post, self.blog_tag, self.blog_category = createBlog()
 
-#     def setUp(self):
-#         type = Type.objects.create(name="type")
-#         self.tag = Tag.objects.create(name="tag", type=type)
-#         self.category = Category.objects.create(name="category")
-#         question = Question(text="question", ans="ans")
-#         question.save()
-#         question.category.add(self.category)
-#         question.tag.add(self.tag)
-
-    def test_faq_url_status_code(self):
-        response = self.client.get(reverse("faq"))
+    def test_blog_single_url_status_code(self):
+        response = self.client.get(
+            reverse("blog_single", kwargs={'post_id': self.post.id}))
         self.assertEqual(response.status_code, 200)
 
-#     def test_faq_search_cat_url_status(self):
-#         response = self.client.get(
-#             reverse("faq_search_cat", args=[self.category.id]))
-#         self.assertEqual(response.status_code, 200)
+    def test_single_blog_page_contains_blog_info(self):
+        response = self.client.get(reverse("blog"))
+        self.assertContains(response, self.post.title)
+        self.assertContains(response, self.post.text)
+        self.assertContains(response, self.blog_tag)
+        self.assertContains(response, self.blog_category)
 
-#     def test_faq_search_tag_url_status(self):
-#         response = self.client.get(
-#             reverse("faq_search_cat", args=[self.tag.id]))
-#         self.assertEqual(response.status_code, 200)
-
-#     def test_faq_search_url_status(self):
-#         response = self.client.post(
-#             reverse("faq_search"), {'search_item': 'a'})
-#         self.assertEqual(response.status_code, 200)
-
-#     # faq search result's views is relatively complex there are lots of conditional
-#     # statement for get/post requests. This will make sure whatever the logic is
-#     # at least there is FaqSearchForm in the template
-#     def test_faq_page_uses_faq_search_form(self):
-#         response = self.client.get('/faq/')
-#         self.assertIsInstance(
-#             response.context['faq_search_form'], FaqSearchForm)
+# This method will create temporay blog object so that these test class use it
+def createBlog():
+    blog_tag = BlogTag.objects.create(name="tag11")
+    blog_category = BlogCategory.objects.create(name="cat11")
+    user = User.objects.create_user("alamin11", "a@gmail.com")
+    post = Post(
+        title="titlexyz", author=user, post_type="blog", text="text")
+    post.save()
+    post.tag.add(blog_tag)
+    post.category.add(blog_category)
+    post.save()
+    return post, blog_tag, blog_category
