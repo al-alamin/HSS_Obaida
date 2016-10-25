@@ -1,3 +1,11 @@
+html, body,h1,h2,h3,h4,h5,h6,p{
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body, p,a{
+  font-size: 16px !important;
+}
+
 .bg-color-light p{
 	color: #0f0f0f;
 }
