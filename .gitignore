@@ -11,3 +11,4 @@ server_statics
 settings/local.py
 *.fuse_hidden
 *.fuse_hidden*
+backup
