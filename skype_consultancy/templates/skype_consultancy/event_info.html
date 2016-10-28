@@ -1,37 +1,58 @@
 {% load tz %}
-<div class="container content text-center headline-center">
-    {#    to display messages  #}
-    {% include 'common/messages.html' %}
-    <h2 class="headline-brd ">Next Skype Session Date And Time</h2>
+<div class="container content overflow-h">
+    <div class="row">
+        {#    to display messages  #}
+        {% include 'common/messages.html' %}
+        <div class="col-md-9 animated fadeInLeft">
+            <h2>Next Skype Session Date And Time</h2>
 
-    <h5 class="margin-bottom-20">
-        <i class="fa  fa-calendar"></i>
-        USA Central Time: {{ event.start_time|timezone:"America/Chicago" }} &nbsp;
-        <i class="fa  fa-calendar"></i>
-        Bangladesh Time: {{ event.start_time|timezone:"Asia/Dhaka" }} &nbsp;
-        <i class="fa  fa-hourglass-start"></i> Duration: {{ event.duration }} Minute &nbsp;
-        <i class="fa  fa-check-square"></i> Availabe Seats:
-        {{ event.available_seats }} out of {{ event.registration_limit }} &nbsp;
-        <i class="fa  fa-skype"></i> Skype ID: MSNB &nbsp;
-        <i class="fa  fa-envelope"></i> Email: support@mystudynotebook.com</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>
+                        <i class="fa  fa-calendar"></i>
+                        USA Central Time: {{ event.start_time|timezone:"America/Chicago" }} <br>
+                        <i class="fa  fa-calendar-check-o"></i>
+                        Bangladesh Time: {{ event.start_time|timezone:"Asia/Dhaka" }} <br>
+                        <i class="fa  fa-hourglass-start"></i> Duration: {{ event.duration }} Minute &nbsp;
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <i class="fa  fa-check-square"></i> Availabe Seats:
+                        {{ event.available_seats }} out of {{ event.registration_limit }} <br>
+                        <i class="fa  fa-skype"></i> Skype ID: MSNB <br>
+                        <i class="fa  fa-envelope"></i> Email: support@mystudynotebook.com
+                    </p>
+                </div>
+            </div>
+        </div>
 
-    {% if user and user.is_anonymous %}
-        {# user is not logged in #}
-        {% if event.is_registration_open %}
-            <h5 class="color-red">Please login to register</h5>
-        {% else %}
-            <h5 class="color-red">Registration is closed for this event. Please keep an eye for our next session</h5>
-        {% endif %}
-    {% else %}
-        {# user is logged in #}
-        {% if is_user_registered %}
-            <h5 class="color-green">You are registered for this event</h5>
-            <h5><a href="#" data-toggle="modal" data-target="#del_modal">Withdraw my registration</a></h5>
-        {% elif event.is_registration_open %}
-            <button class="btn-u" type="button" data-toggle="modal" data-target="#myModal">Register !</button>
-        {% else %}
-            <h5 class="color-red">Registration is closed for this event. Please keep an eye for our next session</h5>
-        {% endif %}
-    {% endif %}
-
+        <div class="col-md-3 animated fadeInRight content">
+            {% if user and user.is_anonymous %}
+                {# user is not logged in #}
+                {% if event.is_registration_open %}
+                    <h5 class="color-red">Please login to register</h5>
+                {% else %}
+                    <h5 class="color-red">Registration is closed for this event. Please keep an eye for our next
+                        session</h5>
+                {% endif %}
+            {% else %}
+                {# user is logged in #}
+                {% if is_user_registered %}
+                    <p class="color-green">You are registered for this event</p>
+                    <p><a href="#" data-toggle="modal" data-target="#del_modal">
+                        Withdraw my registration</a>
+                    </p>
+                {% elif event.is_registration_open %}
+                    <button class="btn-u btn-u-lg" type="button" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-check-circle"></i>&nbsp;Register !
+                    </button>
+                {% else %}
+                    <p class="color-red">
+                        Registration is closed for this event. Please keep an eye for our nex session
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 </div>
