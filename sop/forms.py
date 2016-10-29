@@ -1,4 +1,5 @@
 from django import forms
+
 from common.utils import send_mail
 
 SUPPORTED_SOP_FILE_TYPES = ['application/msword',

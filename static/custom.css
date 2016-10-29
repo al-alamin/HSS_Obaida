@@ -1,3 +1,15 @@
+html, body,h1,h2,h3,h4,h5,h6,p{
+  font-family: 'Roboto', sans-serif;
+}
+
+html, body{
+  font-size: 16px !important;
+}
+p,a{
+  font-size: inherit !important;
+}
+
+
 .bg-color-light p{
 	color: #0f0f0f;
 }

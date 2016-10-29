@@ -15,7 +15,6 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>Intended Department</th>
                             <th>Intended Degree</th>
                             <th>Comment</th>
@@ -28,8 +27,7 @@
                                 <!-- just skip if department id does not match-->
                             {% else %}
                                 <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <td>{{ doc.department }}</td>
+                                    <td><a href="{% url 'download_search_department' doc.department.id %}">{{ doc.department }}</a></td>
                                     <td>{{ doc.degree }}</td>
                                     <td>{{ doc.comment|safe }}</td>
                                     <td><a href="{{ doc.download_link }}" target="_blank">Link</a>
