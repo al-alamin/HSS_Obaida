@@ -71,17 +71,21 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'MSNB.urls'
 
 
-
 # https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
 # change the db_name, user, password field
+
+# This DB setting might be moved to local settings and production settings.py
+# file because db_name, user, password will be different from host to
+# host. So i think moving them to those files makes more sense
+
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'MSNB_10_2',
-    'USER': 'postgres',
-    'PASSWORD': 'a',
-    'HOST': '127.0.0.1',
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'MSNB_10_2',
+        'USER': 'postgres',
+        'PASSWORD': 'a',
+        'HOST': '127.0.0.1',
+    }
 }
 
 
@@ -144,7 +148,8 @@ EMAIL_PORT = 587
 #  python social auth settings
 # https://console.developers.google.com/
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '111230074308-srvkkrn0l32gta34kgidk5pl00ki86tt.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ[
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 # https://developers.facebook.com/apps/?action=create
 SOCIAL_AUTH_FACEBOOK_KEY = '1174313519256593'
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
