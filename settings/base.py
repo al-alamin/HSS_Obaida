@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'celery_app',
     'download_center',
     # 'djcelery',
+    'django.contrib.postgres',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,11 +70,25 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'MSNB.urls'
 
+
+
+# https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
+# change the db_name, user, password field
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'MSNB_10_2',
+    'USER': 'postgres',
+    'PASSWORD': 'a',
+    'HOST': '127.0.0.1',
+  }
+}
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,18 +96,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media',  # That will make MEDIA_URL available in your template context.
-                'social.apps.django_app.context_processors.backends',  # for python social auth
-                'social.apps.django_app.context_processors.login_redirect',  # for python social auth
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'MSNB.wsgi.application'
 
-# database configuration will be different for local staging and production
-# so database settings has been moved to those files 
+WSGI_APPLICATION = 'MSNB.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
