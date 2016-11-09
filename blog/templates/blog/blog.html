@@ -10,7 +10,17 @@
                     <!--Blog Post-->
                     <div class="row blog blog-medium margin-bottom-40">
                         <div class="col-md-5">
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt="">
+                            {% if blog.video_url %}
+                                <!-- 4:3 aspect ratio -->
+                                <div class="embed-responsive embed-responsive-4by3">
+                                    <iframe class="embed-responsive-item" webkitAllowFullScreen mozallowfullscreen
+                                            allowFullScreen
+                                            src="{{ blog.video_url }}">
+                                    </iframe>
+                                </div>
+                            {% else %}
+                                <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt="">
+                            {% endif %}
                         </div>
                         <div class="col-md-7">
                             <h2><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></h2>

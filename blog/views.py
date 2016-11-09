@@ -2,8 +2,11 @@ from django.shortcuts import render
 from .models import Post, BlogCategory, BlogTag
 
 
-def blog(request, author_id=None, cat_id=None, tag_id=None):
-    blogs = Post.objects.filter(post_type='blog')
+def blog(request, author_id=None, cat_id=None, tag_id=None, video=False):
+    if video:
+        blogs = Post.objects.filter(post_type='blog', video_url__isnull=False)
+    else:
+        blogs = Post.objects.filter(post_type='blog')
     if author_id is not None:
         blogs = blogs.filter(author_id=author_id)
     elif cat_id is not None:

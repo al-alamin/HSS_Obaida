@@ -31,9 +31,21 @@
                             <a href="/faq">FAQ</a>
                         </li>
 
-                        <li class="{% if request.resolver_match.url_name == "blog" %}active{% endif %}">
-                            <a href="/blog/">Blog</a>
+                        <!-- Blog -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                BLOG
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="{% if request.resolver_match.url_name == "blog" %}active{% endif %}">
+                                    <a href="/blog/">BLOG</a>
+                                </li>
+                                <li class="{% if request.resolver_match.url_name == "video_blog" %}active{% endif %}">
+                                    <a href="/blog/video_blog/">VIDEO BLOG</a>
+                                </li>
+                            </ul>
                         </li>
+                        <!-- End Blog -->
 
                         <!-- Services -->
                         <li class="dropdown">
@@ -103,7 +115,8 @@
                                     </li>
                                 {% endif %}
                             </ul>
-                        </li>{# end login menu #}
+                        </li>
+                        {# end login menu #}
 
                         <!-- Search Block -->
                         <li>

@@ -29,6 +29,7 @@ class Post(models.Model):
     category = models.ManyToManyField(BlogCategory)
     tag = models.ManyToManyField(BlogTag)
     text = RichTextField(max_length=50000, config_name='basic')
+    video_url = models.URLField(blank=True, null=True)
     featured_img = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
                                      help_text='This image will be used in single blog page')
     thumbnail = models.ImageField(upload_to='images/blog/', default='images/blog/img22.jpg',
