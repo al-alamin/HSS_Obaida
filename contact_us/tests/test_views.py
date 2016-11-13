@@ -5,7 +5,7 @@ from contact_us.forms import ContactUsForm
 from django.core.urlresolvers import reverse
 
 
-class ContacTUsTest(TestCase):
+class ContactUsTest(TestCase):
 
     def test_contact_us_view_renders_contact_us_template(self):
         response = self.client.get(reverse("contactus"))

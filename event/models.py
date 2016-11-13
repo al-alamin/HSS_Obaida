@@ -24,7 +24,7 @@ class Event(models.Model):
                                                           blank=True, default=10)
     fee = models.DecimalField(
         max_digits=255, decimal_places=2, default=0, null=True, blank=True)
-    calendar_invitation_link = models.TextField(
+    google_calendar_html = models.TextField(
         blank=True, null=True)
 
     def __str__(self):

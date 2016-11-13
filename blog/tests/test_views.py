@@ -18,7 +18,6 @@ class BlogTest(TestCase):
     def test_blog_view_renders_blog_template(self):
         response = self.client.get(reverse("blog"))
         self.assertTemplateUsed(response, 'blog/blog.html')
-        logger.info(response.status_code)
 
     # This test'll try to make sure if the template is loaded properly
     def test_blog_page_contains_blog(self):

@@ -46,14 +46,14 @@ class EventRegistrationForm(forms.ModelForm):
             subject = "Your event registration is confirmed for the event {0}".format(
                 event.title)
             # if calendar invitation link is null then making it a empty string
-            if(event.calendar_invitation_link):
-                calendar_invitation_link = "Add to your Google Calendar: " +\
-                    event.calendar_invitation_link
+            if(event.google_calendar_html):
+                google_calendar_html = "Add to your Google Calendar: " +\
+                    event.google_calendar_html
             else:
-                calendar_invitation_link = ""
+                google_calendar_html = ""
             body_email = body_event_registration.format(
                 user.first_name, event.title, event_start_time, event.duration,
-                calendar_invitation_link)
+                google_calendar_html)
             # celery will send the mail asynchronously
             send_mail_async(subject, body_email, to_email)
  
