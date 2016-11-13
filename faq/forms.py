@@ -31,9 +31,11 @@ class FaqSearchForm(forms.Form):
 
             # quering with full search sentence
             query = SearchQuery(item)
-            # quering with parts(word) of the search text(sentence)
-            for word in item.split():
-                query = query | SearchQuery(word)
+            # If there are more than one word in the query then with 
+            # parts(word) of the search text(sentence)
+            if(len(item.split()) > 1):                
+                for word in item.split():
+                    query = query | SearchQuery(word)
             q = Question.objects.annotate(rank=SearchRank(
                 vector, query)).filter(rank__gt=0).order_by('-rank')
 
