@@ -8,7 +8,7 @@ This is for python3
 pip install mechanicalsoup
 
 """
-
+# http://stackoverflow.com/questions/10893374/python-confusions-with-urljoin
 from urllib.parse import urljoin
 import mechanicalsoup
 
@@ -124,8 +124,8 @@ def start_scraping():
                 visited.append(newurl)
 
 # for Debug
-external_url = ['https://twitter.com/sayeedsajal', 'https://www.linkedin.com/in/mdabuobaida', 'https://www.tamu.edu/', 'http://www.whitecanvassoft.com', 'http://redbus2us.com/what-is-statement-of-purpose-sop-why-is-it-so-important/', 'http://grad.berkeley.edu/admissions/apply/statement-purpose/', 'https://grad.ucla.edu/asis/agep/advsopstem.pdf', 'https://ed.stanford.edu/sites/default/files/statement-of-purpose_u.d_2013.pdf', 'http://mystudynotebook.com', 'https://www.coursera.org/learn/study-in-usa', 'https://www.notefull.com/productsmain.php', 'https://www.ielts.org/about-the-test/test-format',
-                'http://www.msinus.com/content/gre-universities-486/', 'http://gradschool.about.com/od/overviewtimetable/a/Should-You-Email-Professors-At-Potential-Graduate-Programs.htm', 'http://redbus2us.com/4-tips-to-email-professors-for-graduate-school-admission-in-usa/', 'https://www.quora.com/How-does-contacting-a-professor-before-applying-factor-into-graduate-admissions', 'http://www.atozbulletin.com/2013/09/list-of-all-us-universities-based-on.html', 'http://www.greatvaluecolleges.net/50-great-affordable-college-towns-in-the-u-s/', 'https://cameron.slb.com/onesubsea', 'http://flickr.com/mybd', 'http://www.nihossain.com/', 'http://psc.tamu.edu/']
+# external_url = ['https://twitter.com/sayeedsajal', 'https://www.linkedin.com/in/mdabuobaida', 'https://www.tamu.edu/', 'http://www.whitecanvassoft.com', 'http://redbus2us.com/what-is-statement-of-purpose-sop-why-is-it-so-important/', 'http://grad.berkeley.edu/admissions/apply/statement-purpose/', 'https://grad.ucla.edu/asis/agep/advsopstem.pdf', 'https://ed.stanford.edu/sites/default/files/statement-of-purpose_u.d_2013.pdf', 'http://mystudynotebook.com', 'https://www.coursera.org/learn/study-in-usa', 'https://www.notefull.com/productsmain.php', 'https://www.ielts.org/about-the-test/test-format',
+#                 'http://www.msinus.com/content/gre-universities-486/', 'http://gradschool.about.com/od/overviewtimetable/a/Should-You-Email-Professors-At-Potential-Graduate-Programs.htm', 'http://redbus2us.com/4-tips-to-email-professors-for-graduate-school-admission-in-usa/', 'https://www.quora.com/How-does-contacting-a-professor-before-applying-factor-into-graduate-admissions', 'http://www.atozbulletin.com/2013/09/list-of-all-us-universities-based-on.html', 'http://www.greatvaluecolleges.net/50-great-affordable-college-towns-in-the-u-s/', 'https://cameron.slb.com/onesubsea', 'http://flickr.com/mybd', 'http://www.nihossain.com/', 'http://psc.tamu.edu/']
 
 '''
     This method will visit the urls in global variable external_url.
@@ -149,7 +149,7 @@ def test_external_url():
         total -= 1
 
 
-# start_scraping()
+start_scraping()
 test_external_url()
 
 print("Visited urls")

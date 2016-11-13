@@ -12,3 +12,4 @@ settings/local.py
 *.fuse_hidden
 *.fuse_hidden*
 backup
+*.swp

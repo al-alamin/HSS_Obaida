@@ -47,7 +47,7 @@ class EventRegistrationForm(forms.ModelForm):
                 event.title)
             # if calendar invitation link is null then making it a empty string
             if(event.calendar_invitation_link):
-                calendar_invitation_link = "Add to your calendar: " +\
+                calendar_invitation_link = "Add to your Google Calendar: " +\
                     event.calendar_invitation_link
             else:
                 calendar_invitation_link = ""
