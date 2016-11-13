@@ -22,8 +22,19 @@
                     <div class="blog-post-tags">
                         {% include 'blog/blog_icon_links.html' %}
                     </div>
+
                     <div class="blog-img">
-                        <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="">
+                        {% if blog.video_url %}
+                            <!-- 16:9 aspect ratio -->
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" webkitAllowFullScreen mozallowfullscreen
+                                        allowFullScreen
+                                        src="{{ blog.video_url }}">
+                                </iframe>
+                            </div>
+                        {% else %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="">
+                        {% endif %}
                     </div>
                     <p>{{ blog.text|safe }}</p>
                     <hr>
