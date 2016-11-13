@@ -70,23 +70,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'MSNB.urls'
 
-
-# https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
-# change the db_name, user, password field
-
-# This DB setting might be moved to local settings and production settings.py
-# file because db_name, user, password will be different from host to
-# host. So i think moving them to those files makes more sense
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'MSNB_10_2',
-        'USER': 'postgres',
-        'PASSWORD': 'a',
-        'HOST': '127.0.0.1',
-    }
-}
+# Databse is changed to Postgres from Sqlite3 and the DB settings is
+# moved to local.py and production.py settings files
 
 
 TEMPLATES = [
