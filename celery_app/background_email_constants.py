@@ -44,13 +44,15 @@ body_event_registration = """
     The event will be held on {2} Bangladesh time and the event duration is {3} minutes.
     If you have any query please don't hesitate to email at support@mystudynotebook.com.
     Please don't forget to receive call from our Skype account (Skype ID is 'MSNB') at the mentioned time.
-    We hope a very good day to you.
+    We hope a very good day to you.<br>
+    {4}
 
-    Thanks and Regards,
-    Support Team
-    My Study Notebook
-    Web: http://www.mystudynotebook.com
-    Facebook Group: https://www.facebook.com/groups/mystudynotebook/
+    <br>
+    Thanks and Regards,<br>
+    Support Team <br>
+    My Study Notebook <br>
+    Web: http://www.mystudynotebook.com <br>
+    Facebook Group: https://www.facebook.com/groups/mystudynotebook/ <br>
     """
 body_new_user = """
     Hi,

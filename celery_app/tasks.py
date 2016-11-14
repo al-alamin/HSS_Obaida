@@ -23,7 +23,6 @@ def send_mail_async(subject, body_email, to_email):
 @app.task
 def send_reminder_email(event_id, is_feedback_email):
     """
-
     :param event_id:
     :param is_feedback_email:
     :return:
@@ -50,7 +49,6 @@ def send_reminder_email(event_id, is_feedback_email):
 
 def delete_previous_tasks(event):
     """
-
     :param parent_task_name:
     :return:
     """
@@ -64,7 +62,6 @@ def delete_previous_tasks(event):
 
 def schedule_background_email(event, start_timedelta, expire_timedelta, is_feedback_email):
     """
-
     :param event:
     :param start_timedelta:
     :param expire_timedelta:
@@ -90,7 +87,6 @@ def schedule_background_email(event, start_timedelta, expire_timedelta, is_feedb
 @app.task
 def skype_event_group_email(event_email_id):
     """
-
     :param event_email_id:
     :return:
     """

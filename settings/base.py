@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'celery_app',
     'download_center',
     # 'djcelery',
+    'django.contrib.postgres',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,11 +70,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'MSNB.urls'
 
+# Databse is changed to Postgres from Sqlite3 and the DB settings is
+# moved to local.py and production.py settings files
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,25 +85,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.core.context_processors.media',  # That will make MEDIA_URL available in your template context.
-                'social.apps.django_app.context_processors.backends',  # for python social auth
-                'social.apps.django_app.context_processors.login_redirect',  # for python social auth
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
             ],
         },
     },
 ]
 
+
 WSGI_APPLICATION = 'MSNB.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -139,7 +133,8 @@ EMAIL_PORT = 587
 #  python social auth settings
 # https://console.developers.google.com/
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '111230074308-srvkkrn0l32gta34kgidk5pl00ki86tt.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ[
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 # https://developers.facebook.com/apps/?action=create
 SOCIAL_AUTH_FACEBOOK_KEY = '1174313519256593'
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']

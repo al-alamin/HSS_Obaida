@@ -21,6 +21,13 @@ def new_user_signal_handler(sender, **kwargs):
     Will send mail to admin whenever new user is created via python social auth
     """
     # make sure new record is created
+    ''' 
+    By returing we are disabling new registration email.
+    This is very very important when migrating data from one db to another
+    without this celery will send email to the use every time new user 
+    is created.
+    '''
+    return
     if kwargs['created']:
         social_user = kwargs['instance']
         user = social_user.user  # instance of django default User model
