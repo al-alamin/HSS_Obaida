@@ -1,11 +1,8 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% block content %}
-    {#    {% include "home/slider.html" %}#}
-    <img class="img-responsive full-width" src="{% static 'home/home_banner.png' %}">
-    {% include "home/top_breadcrumb.html" %}
-    {% include "home/feature_block.html" %}
-    <div class="bg-color-light">{% include "home/about_us.html" %}</div>
+    {% include "home/slider.html" %}
+    {% include "home/about_us.html" %}
+    <div class="bg-color-light">{% include "home/feature_block.html" %}</div>
     {% include "home/advisors.html" %}
-
 {% endblock %}
