@@ -2,9 +2,11 @@
 {% load staticfiles %}
 {% block content %}
     {% include "sop/image_banner.html" %}
+    {% if messages %}
     <div class="container margin-top-20">
         {% include 'common/messages.html' %}
     </div>
+    {% endif %}
     <div class="bg-color-light">
         {% include "sop/container.html" %}
     </div>
