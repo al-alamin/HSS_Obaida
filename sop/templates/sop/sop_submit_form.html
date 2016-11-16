@@ -1,6 +1,7 @@
 <!-- Contacts -->
 {% load staticfiles %}
 <div class="container content" id="sop_submit_form">
+{% if user.is_authenticated %}
     <form action="{% url 'sop_review' %}" enctype="multipart/form-data" method="post" id="sky-form3" class="sky-form {% if email_success %} submited {% endif %}">
         {% csrf_token %}
         <header>Submit Your SOP</header>
@@ -55,5 +56,8 @@
             <p>Your message was successfully sent!</p>
         </div>
     </form>
+{% else %}
+    <h2 class="text-danger text-center">Please <a href="{% url 'login' %}">login</a> to submit your document!</h2>
+{% endif %}
 </div>
 <!-- Contacts -->

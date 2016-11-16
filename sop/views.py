@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 
 from .forms import SOPSubmitForm
@@ -10,8 +11,15 @@ def sop(request):
         if form.is_valid():
             file = request.FILES['file']
             email_success = form.email_SOP(file)
+            if email_success:
+                messages.success(request, "Your message was successfully sent!", extra_tags='alert-success')
     else:
-        form = SOPSubmitForm()
+        data = dict()
+        if request.user.is_authenticated:
+            data = {'name': request.user.get_full_name(),
+                    'email': request.user.email
+                    }
+        form = SOPSubmitForm(initial=data)
 
     context = {'form': form,
                'email_success': email_success,

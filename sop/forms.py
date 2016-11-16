@@ -1,6 +1,7 @@
 from django import forms
-
 from common.utils import send_mail
+from celery_app.background_email_constants import SOP_RECEIVED
+from celery_app.tasks import send_mail_async
 
 SUPPORTED_SOP_FILE_TYPES = ['application/msword',
                             'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
@@ -30,4 +31,10 @@ class SOPSubmitForm(forms.Form):
         msg = self.cleaned_data['msg']
         subject = "{0} submitted a SOP for review".format(name)
         email_success = send_mail(subject, msg, from_email=from_email, attachment=file)
+
+        if email_success:
+            # confirmation mail to submitter
+            subject = "We have received your document"
+            send_mail_async(subject, SOP_RECEIVED.format(name), to_email=[from_email, ])
+
         return email_success

@@ -2,7 +2,12 @@
 {% load staticfiles %}
 {% block content %}
     {% include "sop/image_banner.html" %}
-   <div class="bg-color-light"> {% include "sop/container.html" %}</div>
+    <div class="container margin-top-20">
+        {% include 'common/messages.html' %}
+    </div>
+    <div class="bg-color-light">
+        {% include "sop/container.html" %}
+    </div>
     {% include "sop/how_does_it _work.html" %}
     <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>
 {% endblock %}

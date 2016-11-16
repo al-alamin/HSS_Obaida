@@ -58,3 +58,9 @@ body_new_user = """
     Your Authentication Provider: {2} <br>
     Thanks again for joining. We hope a very good day to you.<br><br>
     """ + SIGNATURE
+
+SOP_RECEIVED = """
+Hi {0}, <br>
+We have received your document. We will send feedback as soon as we are done with reviewing. <br>
+Thanks for being with us. <br><br>
+""" + SIGNATURE
