@@ -56,6 +56,12 @@ class TestFaqSearchResult(TestCase):
             reverse("faq_search"), {'search_item': 'a'})
         self.assertEqual(response.status_code, 200)
 
+    def test_faq_search_with_empty_query(self):
+        response = self.client.post(
+            reverse("faq_search"), {'search_item': ''})
+        self.assertEqual(response.status_code, 200)
+
+
     # faq search result's views is relatively complex there are lots of conditional
     # statement for get/post requests. This will make sure whatever the logic is
     # at least there is FaqSearchForm in the template

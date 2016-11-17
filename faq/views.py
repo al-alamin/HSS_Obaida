@@ -7,7 +7,8 @@ from .models import Question
 def faq(request):
     types = models.Type.objects.all()
     recent_q = Question.objects.all().order_by('date_modified')[:50]
-    popular_q = Question.objects.filter(is_popular=True).order_by('date_modified')[:50]
+    popular_q = Question.objects.filter(
+        is_popular=True).order_by('date_modified')[:50]
     faq_search_form = FaqSearchForm()
     context = {'types': types,
                'recent_q': recent_q,
@@ -32,6 +33,11 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
                 search_result = faq_search_form.get_search_result()
             else:
                 redirect('faq')
+        #  Due to front end validation the post request request form should
+        #  be always valid. This will come in handy if anyone makes this
+        #  request through a program.
+        else:
+            search_result = ""
 
     elif question_id is not None:
         search_result = Question.objects.filter(id=question_id)
