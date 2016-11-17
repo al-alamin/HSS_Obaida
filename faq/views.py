@@ -25,6 +25,7 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     faq_search_form = FaqSearchForm()
     search_for = ''
     is_single = False
+    search_result = ""
     if request.method == 'POST':
         faq_search_form = FaqSearchForm(request.POST)
         if faq_search_form.is_valid():
@@ -33,11 +34,7 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
                 search_result = faq_search_form.get_search_result()
             else:
                 redirect('faq')
-        #  Due to front end validation the post request request form should
-        #  be always valid. This will come in handy if anyone makes this
-        #  request through a program.
-        else:
-            search_result = ""
+
 
     elif question_id is not None:
         search_result = Question.objects.filter(id=question_id)
