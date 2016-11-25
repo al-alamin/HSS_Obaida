@@ -18,6 +18,38 @@
             <div class="col-md-10">
                 {% include 'faq/search_main_content.html' %}
             </div>
+
+        <div class="pagination">
+        <h1>Pagination</h1>
+            <span class="step-links">
+                {% if search_result_pagination.has_previous %}
+                <form action="?page={{ search_result_pagination.previous_page_number }}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ search_for }}" name="search_name">
+                    <button type="submit">Pervious</button>
+                </form>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ search_result_pagination.number }} of {{ search_result_pagination.paginator.num_pages }}.
+                </span>
+
+
+
+                {% if search_result_pagination.has_next %}
+                <form action="?page={{ search_result_pagination.next_page_number }}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ search_for }}" name="search_name">
+                    <button type="submit">Next</button>
+                </form>
+                {% endif %}
+
+            </span>
         </div>
-    </div>
+
+
+
+        </div>
+
+   </div>
 {% endblock %}
