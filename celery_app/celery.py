@@ -27,3 +27,5 @@ app.conf.update(
 
 # run celery worker from command line
 # celery -A celery_app worker -l info
+# celery commands
+# http://docs.celeryproject.org/en/latest/userguide/monitoring.html#commands

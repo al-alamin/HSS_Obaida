@@ -31,10 +31,13 @@
             {% if user and user.is_anonymous %}
                 {# user is not logged in #}
                 {% if event.is_registration_open %}
-                    <h5 class="color-red">Please login to register</h5>
+                    <h4 class="text-danger">
+                        Please <a href="{% url 'login' %}">login</a> to register!
+                    </h4>
                 {% else %}
-                    <h5 class="color-red">Registration is closed for this event. Please keep an eye for our next
-                        session</h5>
+                    <h4 class="text-danger">Registration is closed for this event. Please keep an eye for our next
+                        session
+                    </h4>
                 {% endif %}
             {% else %}
                 {# user is logged in #}

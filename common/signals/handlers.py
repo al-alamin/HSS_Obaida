@@ -27,11 +27,10 @@ def new_user_signal_handler(sender, **kwargs):
     without this celery will send email to the use every time new user 
     is created.
     '''
-    return
     if kwargs['created']:
         social_user = kwargs['instance']
         user = social_user.user  # instance of django default User model
-        subject = "New user created in MSNB"
+        subject = "Welcome to www.mystudynotebook.com"
 
         # @Note last_name, first_name is not available in user model
         #  when UserSocialAuth instance is created

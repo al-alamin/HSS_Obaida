@@ -6,6 +6,14 @@
     <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>
     {% endif %}
     <div class="bg-color-light"> {% include "sop/container.html" %}</div>
+    {% if messages %}
+    <div class="container margin-top-20">
+        {% include 'common/messages.html' %}
+    </div>
+    {% endif %}
+    <div class="bg-color-light">
+        {% include "sop/container.html" %}
+    </div>
     {% include "sop/how_does_it _work.html" %}
     {% if not email_success %}
     <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>

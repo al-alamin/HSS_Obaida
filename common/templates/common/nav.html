@@ -69,14 +69,14 @@
                         <!-- About Us -->
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                About Us
+                                ABOUT US
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="{% if request.resolver_match.url_name == "about_us" %}active{% endif %}">
-                                    <a href="/about_us">About Us</a>
+                                    <a href="/about_us">ABOUT US</a>
                                 </li>
                                 <li class="{% if request.resolver_match.url_name == "contactus" %}active{% endif %}">
-                                    <a href="/contactus/">Contact Us</a>
+                                    <a href="/contactus/">CONTACT US</a>
                                 </li>
                             </ul>
                         </li>
@@ -89,7 +89,7 @@
                                     Welcome {{ user.first_name|truncatewords:1|default:user.last_name|truncatewords:1 }}
                                     !
                                 {% else %}
-                                    Login
+                                    LOGIN
                                 {% endif %}
                             </a>
 
@@ -98,20 +98,20 @@
                                     <li>
                                         <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">
                                             <i class="fa fa-google fa-lg color-red"></i>
-                                            Login with Google
+                                            LOGIN WITH GOOGLE
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
                                             <i class="fa fa-facebook-official fa-lg color-dark-blue"></i>
-                                            Login with Facebook
+                                            LOGIN WITH FACEBOOK
                                         </a>
                                     </li>
                                 {% else %}
                                     <li>
                                         <a href="{% url 'auth:logout' %}?next={{ request.path }}">
-                                            Logout</a>
+                                            LOGOUT</a>
                                     </li>
                                 {% endif %}
                             </ul>
