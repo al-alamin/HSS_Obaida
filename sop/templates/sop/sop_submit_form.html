@@ -26,6 +26,9 @@
                 </section>
             </div>
 
+
+
+
             <section>
                 <label class="label">Message</label>
                 <label class="textarea">
@@ -34,6 +37,25 @@
                                 {{ form.msg }}
                 </label>
             </section>
+
+
+            <section class="col col-6">
+                <label class="label">Department Name</label>
+                <label class="input">
+                    <i class="icon-append fa fa-user"></i>
+                    {{ form.department.errors }}
+                    {{ form.department }}
+                </label>
+            </section>
+
+            <section>
+                <label class="label">Review Type</label>
+                <label class="textarea">                    
+                      {{ form.review_type.errors   }}
+                                {{ form.review_type }}
+                </label>
+            </section> 
+
 
             <section>
                 <label for="file" class="input input-file">

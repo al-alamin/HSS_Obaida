@@ -2,7 +2,12 @@
 {% load staticfiles %}
 {% block content %}
     {% include "sop/image_banner.html" %}
-   <div class="bg-color-light"> {% include "sop/container.html" %}</div>
-    {% include "sop/how_does_it _work.html" %}
+    {% if email_success %} 
     <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>
+    {% endif %}
+    <div class="bg-color-light"> {% include "sop/container.html" %}</div>
+    {% include "sop/how_does_it _work.html" %}
+    {% if not email_success %}
+    <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>
+    {% endif %}
 {% endblock %}
