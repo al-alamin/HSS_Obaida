@@ -1,4 +1,14 @@
 {% extends 'common/base.html' %}
+{% block title %}{{ user.get_full_name|upper }}{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="{{ user.usermeta.short_bio|safe }}">
+    <meta name="keywords"
+          content="adviser, expert, MS, Masters, PhD">
+{% endblock %}
+{% block meta-author %}
+    <meta name="author" content="{{ user.get_full_name|upper }}">
+{% endblock %}
 
 <!--/container -->
 {% load staticfiles %}
@@ -21,6 +31,7 @@
 
             <div class="col-md-7">
                 <h2>{{ user.get_full_name }}</h2>
+
                 <p class="margin-bottom-20">
                     {{ user.usermeta.long_bio|safe|default:user.usermeta.short_bio|safe }}
                 </p>

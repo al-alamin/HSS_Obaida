@@ -1,13 +1,19 @@
 {% extends "common/base.html" %}
 {% load staticfiles %}
-{% block head-content %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block meta %}
+    <meta name="description" content="{{ blog.text|truncatewords:40|safe }}">
+    <meta name="keywords" content="blog">
     <!-- for customizing facebook sharing
     Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
     <meta property="og:url" content="{% url 'blog_single' blog.id %}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="{{ blog.title }}"/>
-    <meta property="og:description" content="{{ blog.text|truncatewords:80 }}"/>
-    <meta property="og:image" content="{{ MEDIA_URL }}{{ blog.thumbnail }}"/>
+    <meta property="og:description" content="{{ blog.text|truncatewords:40|safe }}"/>
+    <meta property="og:image" content="http://mystudynotebook.com{{ MEDIA_URL }}{{ blog.thumbnail }}"/>
+{% endblock %}
+{% block meta-author %}
+    <meta name="author" content="{{ blog.author.get_full_name }}">
 {% endblock %}
 
 {% block content %}
@@ -17,7 +23,7 @@
             <!-- Left Side -->
             <div class="col-md-9 md-margin-bottom-40">
                 <div class="blog margin-bottom-40">
-                    <h2>{{ blog.title }}</h2>
+                    <h1>{{ blog.title }}</h1>
 
                     <div class="blog-post-tags">
                         {% include 'blog/blog_icon_links.html' %}
