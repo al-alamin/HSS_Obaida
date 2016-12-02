@@ -39,7 +39,8 @@
                                 </iframe>
                             </div>
                         {% else %}
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="">
+                            <img class="img-responsive"
+                                 src="{{ MEDIA_URL }}{{ blog.featured_img }}" alt="{{ blog.title }}">
                         {% endif %}
                     </div>
                     <p>{{ blog.text|safe }}</p>
