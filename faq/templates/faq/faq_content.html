@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}"
                                          id="recent-{{ forloop.counter }}">
-                                        <div class="panel-body">
+                                        <div class="panel-body color-blue">
                                             {{ question.ans | safe }} <br>
                                             <a href="{% url 'faq_search_single' question.id %}">view comments</a>
                                         </div>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="panel-collapse collapse {% if forloop.first %}in{% endif %}"
                                          id="popular-{{ forloop.counter }}">
-                                        <div class="panel-body">
+                                        <div class="panel-body color-blue">
                                             {{ question.ans | safe }}<br>
                                             <a href="{% url 'faq_search_single' question.id %}">view comments</a>
                                         </div>

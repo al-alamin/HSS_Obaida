@@ -5,7 +5,7 @@
         {% for blog in recent_blogs %}
             <dl class="dl-horizontal">
                 <dt><a href="{% url 'blog_single' blog.id %}">
-                    <img src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt=""/>
+                    <img src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt="{{ blog.title }}"/>
                 </a></dt>
                 <dd>
                     <p><a href="{% url 'blog_single' blog.id %}">{{ blog.title }}</a></p>

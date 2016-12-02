@@ -6,7 +6,8 @@
             <h2 class="headline-brd">Our next presenter</h2>
         </div>
         <div class="col-md-5 ">
-            <img class="img-responsive" src="{{ MEDIA_URL }}{{ event.presenter.usermeta.thumbnail }}" alt="">
+            <img class="img-responsive"
+                 src="{{ MEDIA_URL }}{{ event.presenter.usermeta.thumbnail }}" alt="{{ event.presenter.first_name }} {{ event.presenter.last_name }}">
         </div>
         <div class="col-md-7">
             <h2>{{ event.presenter.first_name }} {{ event.presenter.last_name }}</h2>

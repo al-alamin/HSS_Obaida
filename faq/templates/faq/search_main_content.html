@@ -10,18 +10,22 @@
                 {% include 'common/fb_like_share.html' %}
             </div>
         {% endif %}
+    {% if question.category.all %}
         <ul class="list-inline up-ul">
             <i class="fa fa-cube"></i>
+
             {% for cat in question.category.all %}
                 <li><a href="{% url 'faq_search_cat' cat.id %}">{{ cat.name }}</a></li>
             {% endfor %}
+        {% endif %}
+    {% if question.tag.all %}
             <i class="fa fa-tags"></i>
             {% for tag in question.tag.all %}
                 <li><a href="{% url 'faq_search_tag' tag.id %}">{{ tag.name }}</a></li>
             {% endfor %}
         </ul>
-        <hr>
-        <p>
+    {% endif %}
+        <p class="color-blue">
             {{ question.ans | safe }}
             {% if not is_single %}
                 <br>

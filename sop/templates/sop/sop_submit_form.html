@@ -57,7 +57,7 @@
         </div>
     </form>
 {% else %}
-    <h2 class="text-danger text-center">Please <a href="{% url 'login' %}">login</a> to submit your document!</h2>
+    <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to submit your document!</h2>
 {% endif %}
 </div>
 <!-- Contacts -->
