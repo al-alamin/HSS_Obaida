@@ -10,4 +10,5 @@ class ReviewSubmission(models.Model):
     review_type = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.user
+
+        return self.user.username
