@@ -52,13 +52,14 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     
     # https://docs.djangoproject.com/en/1.10/topics/pagination/
     # This part is need for pagination
+    item_per_page = 2
     page = request.GET.get('page')    
     if(page):
         search_for =  request.POST.get('search_name')
         f_s_form = FaqSearchForm(data={'search_item': search_for})
         f_s_form.is_valid()
         search_result = f_s_form.get_search_result()
-    paginator = Paginator(search_result, 5)
+    paginator = Paginator(search_result, item_per_page)
     try:
         search_result_pagination = paginator.page(page)
     except PageNotAnInteger:
