@@ -64,16 +64,22 @@ class SOPSubmitForm(forms.Form):
         name = self.cleaned_data['name']
         from_email = self.cleaned_data['email']
         msg = self.cleaned_data['msg']
+        review_type = self.cleaned_data['review_type']
+        department = self.cleaned_data['department']
         subject = "{0} submitted a SOP for review".format(name)
+        body = "Message is: {0}<br>"\
+               "Review Type: {1}<br>"\
+               "Intended Department {2}<br>".format(
+                   msg, review_type, department)
 
         email_success = True
+        email_success = send_mail(
+            subject, body, from_email=from_email, attachment=file)
 
-
-        # email_success = send_mail(subject, msg, from_email=from_email, attachment=file)
-
-        # if email_success:
-        #     # confirmation mail to submitter
-        #     subject = "We have received your document"
-        #     send_mail_async(subject, SOP_RECEIVED.format(name), to_email=[from_email, ])
+        if email_success:
+            # confirmation mail to submitter
+            subject = "We have received your document"
+            send_mail_async(
+                subject, SOP_RECEIVED.format(name), to_email=[from_email, ])
 
         return email_success

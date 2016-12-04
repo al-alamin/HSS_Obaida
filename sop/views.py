@@ -16,6 +16,7 @@ def sop(request):
                 messages.success(request, "Your message was successfully sent!", 
                     extra_tags='alert-success')
                 review_type = form.cleaned_data['review_type']
+                # creating entry in review submission model to prevent multiple submission in one category
                 ReviewSubmission.objects.create(user=request.user, review_type=review_type)
 
     else:
