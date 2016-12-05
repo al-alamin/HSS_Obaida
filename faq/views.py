@@ -28,8 +28,11 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     search_for = ''
     is_single = False
     search_result = ""
+    # This part will return search result when user types and searches faq from searchbox
     if request.method == 'POST':
         faq_search_form = FaqSearchForm(request.POST)
+        # when user clicks on pagination links though that will be a post request but this faq_form will be invalid
+        # so search_result will not be generated from here
         if faq_search_form.is_valid():
             search_for = faq_search_form.cleaned_data['search_item']
             if search_for:
@@ -49,16 +52,25 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
         search_for = models.Tag.objects.get(id=tag_id).name + ' Tag'
     else:
         redirect('faq')
-    
+
     # https://docs.djangoproject.com/en/1.10/topics/pagination/
     # This part is need for pagination
     item_per_page = 2
-    page = request.GET.get('page')    
+    # when user clicks on pagination links like next/previous button or 1,2,... page number then there will be
+    # a get url with page associated with it
+    # when users types and search this page will be none and search_result
+    # will be generated from faq_search from.
+    page = request.GET.get('page')
+    # This part will return search result when user clicks on pagination links like next/previous button or
+    # 1,2,... page number
     if(page):
-        search_for =  request.POST.get('search_name')
+        search_for = request.POST.get('search_name')
         f_s_form = FaqSearchForm(data={'search_item': search_for})
         f_s_form.is_valid()
         search_result = f_s_form.get_search_result()
+
+    # after we have gotten the search result either from faq_search_form or pagination form
+    # Here the pagination will be done.
     paginator = Paginator(search_result, item_per_page)
     try:
         search_result_pagination = paginator.page(page)
@@ -68,7 +80,6 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         search_result_pagination = paginator.page(paginator.num_pages)
-
 
     context = {
         'faq_search_form': faq_search_form,
