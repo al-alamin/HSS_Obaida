@@ -1,5 +1,11 @@
 {% extends "common/base.html" %}
-{% block title %}Search for Frequently Asked Question about study, education, higher study, MS, PhD{% endblock %}
+{% block title %}
+    {% if is_single %}
+        {{ search_result.0.text | safe }}
+    {% else %}
+        Search for Frequently Asked Question about study, education, higher study, MS, PhD
+    {% endif %}
+{% endblock %}
 {% block meta %}
     <meta name="description"
           content="Frequently Asked Question for higher education/Study, MS, PhD in USA, Canada, Australia">
@@ -20,7 +26,6 @@
                 {% include 'faq/search_sidebar.html' %}
             </div>
             <!-- /sidebar /col-md-2-->
-
             <!-- main content-->
             <div class="col-md-10">
                 {% include 'faq/search_main_content.html' %}
