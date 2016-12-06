@@ -1,5 +1,5 @@
 {% if not is_single %}
-    <span class="results-number">TOTAL {{ search_result.count }} RESULTS FOUND</span>
+    <span class="results-number">TOTAL {{ search_result_pagination.paginator.count }} RESULTS FOUND</span>
 {% endif %}
 {% for question in search_result_pagination %}
     <!-- Begin Inner Results -->
