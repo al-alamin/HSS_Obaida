@@ -6,18 +6,16 @@ from .forms import FaqSearchForm
 from .models import Question
 
 
-# class Pages:
-
-#     def __init__(self, objects, count):
-#         self.pages = Paginator(objects, count)
-
 def get_pages_to_show(paginator, page):
     ''' 
+        Pagination link will show
+        previous button
         first page always
         two pages before selected page
         the selected page
         two pages after selected page
         last page always
+        next button
 
         suppose there is total 100 page. you want to see page 20
         then the pages to show list will be [1, -1, 18,19,20,21,22,-1, 100]
