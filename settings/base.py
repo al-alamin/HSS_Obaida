@@ -92,6 +92,16 @@ TEMPLATES = [
     },
 ]
 
+# https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PWD'],
+        'HOST': '127.0.0.1',
+    }
+}
 
 WSGI_APPLICATION = 'MSNB.wsgi.application'
 

@@ -1,6 +1,7 @@
 <!-- Contacts -->
 {% load staticfiles %}
 <div class="container content" id="sop_submit_form">
+{% if user.is_authenticated %}
     <form action="{% url 'sop_review' %}" enctype="multipart/form-data" method="post" id="sky-form3" class="sky-form {% if email_success %} submited {% endif %}">
         {% csrf_token %}
         <header>Submit Your SOP</header>
@@ -26,6 +27,9 @@
                 </section>
             </div>
 
+
+
+            <div class="row">
             <section>
                 <label class="label">Message</label>
                 <label class="textarea">
@@ -34,7 +38,30 @@
                                 {{ form.msg }}
                 </label>
             </section>
+            </div>
 
+            <div class="row">
+            <section class="col col-6">
+                <label class="label">Department Name</label>
+                <label class="input">
+                    <i class="icon-append fa fa-user"></i>
+                    {{ form.department.errors }}
+                    {{ form.department }}
+                </label>
+            </section>
+            </div>
+
+            <div class="row">
+            <section>
+                <label class="label">Review Type</label>
+                <label class="textarea">                    
+                      {{ form.review_type.errors   }}
+                                {{ form.review_type }}
+                </label>
+            </section> 
+            </div>
+
+            <div class="row">
             <section>
                 <label for="file" class="input input-file">
                     <div class="button">
@@ -44,6 +71,7 @@
                     <input type="text" placeholder="Include your SOP (Only .doc or .docx file)" readonly>
                 </label>
             </section>
+            <div class="row">
         </fieldset>
 
         <footer>
@@ -55,5 +83,8 @@
             <p>Your message was successfully sent!</p>
         </div>
     </form>
+{% else %}
+    <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to submit your document!</h2>
+{% endif %}
 </div>
 <!-- Contacts -->

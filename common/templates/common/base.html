@@ -2,14 +2,25 @@
 <!--[if !IE]><!-->
 <html lang="en"> <!--<![endif]-->
 <head>
-    <title>My Study Notebook</title>
+    <title>
+        {% block title %}
+            My Study Notebook - A complete guideline for higher education/ higher study.
+        {% endblock %}
+    </title>
 
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HIgher Study">
-    <meta name="author" content="White Canvas Software">
     <meta name="google-site-verification" content="7nukdjHe5Xk3lse0GgJP8eNp9lzYyFfqEgwWhklY66w"/>
+    {% block meta %}
+        <meta name="description"
+              content="My Study Notebook helps higher study/education seeking students.Masters, MS, PhD">
+        <meta name="keywords"
+              content="USA, Bangladesh, Dhaka, Canada, Australia,Masters, MS, PhD, Higher Study, Higher Education, GRE, TOEFL, GMAT, IELTS, Application">
+    {% endblock %}
+    {% block meta-author %}
+        <meta name="author" content="My Study Notebook">
+    {% endblock %}
     {% load staticfiles %}
     <!-- Favicon -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -41,9 +52,6 @@
     <link rel="stylesheet" href="{% static 'custom.css' %}">
     <!-- google service -->
     <script src="{% static 'common/google_analytics2.js' %}"></script>
-    <!-- for adding extra head element eg meta tag -->
-    {% block head-content %}
-    {% endblock %}
 </head>
 
 <body data-spy="spyscroll" class="header-fixed">

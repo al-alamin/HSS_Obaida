@@ -1,9 +1,25 @@
 {% extends "common/base.html" %}
+{% block title %}Join online live session, ask your question about higher study/education{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="graduate MS, PhD student will answer question">
+    <meta name="keywords"
+          content="live,skype, online, question, answer">
+{% endblock %}
 {% block content %}
     {% include "skype_consultancy/registration_modal.html" %}  {# it will be hidden#}
     {% include "skype_consultancy/registration_delete_modal.html" %}  {# it will be hidden#}
     {% include "skype_consultancy/image_banner.html" %}
-    {% if event %}{% include "skype_consultancy/event_info.html" %}{% endif %}
+    {% if event %}
+        {% include "skype_consultancy/event_info.html" %}
+    {% else %}
+        <div class="container content overflow-h">
+            <h4 class="text-center">
+                Next Skype session is not scheduled yet. Please visit sometime later or keep an eye on our
+                <a href="https://www.facebook.com/groups/mystudynotebook/" target="_blank">Facebook Group</a>
+            </h4>
+        </div>
+    {% endif %}
     <div class="bg-color-light">{% include "skype_consultancy/top_block.html" %}</div>
-     {% if event %}{% include "skype_consultancy/next_session.html" %}{% endif %}
+    {% if event %}{% include "skype_consultancy/next_session.html" %}{% endif %}
 {% endblock %}

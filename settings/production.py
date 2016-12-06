@@ -11,23 +11,6 @@ ALLOWED_HOSTS = [
     '139.162.45.141'
 ]
 
-
-# https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
-# change the db_name, user, password field
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'MSNB_10_2',
-        'USER': 'postgres',
-        'PASSWORD': 'a',
-        'HOST': '127.0.0.1',
-    }
-}
-
-
-
 # logging settings for production. print to console.save to file
 LOGGING = {
     'version': 1,

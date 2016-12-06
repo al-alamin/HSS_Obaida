@@ -56,6 +56,22 @@ class TestFaqSearchResult(TestCase):
             reverse("faq_search"), {'search_item': 'a'})
         self.assertEqual(response.status_code, 200)
 
+    def test_faq_search_with_empty_query(self):
+        response = self.client.post(
+            reverse("faq_search"), {'search_item': ''})
+        self.assertEqual(response.status_code, 200)
+
+    ''''usually there will be always a post request to /faq/search
+        but if there is a get request to this url or if user simply refreshes
+        the browser at that url then there will be a get request to this url
+        this test will make sure that the view is able to handle simple get
+        request
+    '''
+    def test_faq_search_with_get_request(self):
+        response = self.client.get(reverse("faq_search"))
+        self.assertEqual(response.status_code, 200)
+
+
     # faq search result's views is relatively complex there are lots of conditional
     # statement for get/post requests. This will make sure whatever the logic is
     # at least there is FaqSearchForm in the template

@@ -1,8 +1,22 @@
 {% extends "common/base.html" %}
+{% block title %}Review your statement of purpose (SOP), Resume, Mail to Professor for free{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="We review/check first SOP and any other document for free">
+    <meta name="keywords"
+          content="SOP,Statement of Purpose, Resume, Mail, Free, Online, Best, Review, Check">
+{% endblock %}
 {% load staticfiles %}
 {% block content %}
     {% include "sop/image_banner.html" %}
-   <div class="bg-color-light"> {% include "sop/container.html" %}</div>
+    {% if messages %}
+        <div class="container margin-top-20">
+            {% include 'common/messages.html' %}
+        </div>
+    {% endif %}
+    <div class="bg-color-light">
+        {% include "sop/container.html" %}
+    </div>
     {% include "sop/how_does_it _work.html" %}
     <div class="bg-color-light">{% include "sop/sop_submit_form.html" %}</div>
 {% endblock %}

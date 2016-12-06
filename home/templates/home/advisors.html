@@ -15,7 +15,8 @@
             <div class="owl-slider">
                 {% for advisor in advisors %}
                     <div class="item">
-                        <img class="img-responsive" src="{{ MEDIA_URL }}{{ advisor.usermeta.thumbnail }}" alt="">
+                        <img class="img-responsive"
+                             src="{{ MEDIA_URL }}{{ advisor.usermeta.thumbnail }}" alt="{{ advisor.get_full_name }}">
                         <span><a href="{% url 'user_profile' advisor.id %}">{{ advisor.get_full_name }}</a> </span>
                         <small>- {{ advisor.groups.first }} -</small>
                         <p>{{ advisor.usermeta.short_bio|safe }}</p>

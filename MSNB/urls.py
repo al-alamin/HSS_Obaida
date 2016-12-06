@@ -39,6 +39,8 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # djangos default url for login
     url(r'^accounts/login/$', login, name='login'),
+    
+
 
 ]
 if settings.DEBUG is True:

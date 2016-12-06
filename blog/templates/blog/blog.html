@@ -19,7 +19,8 @@
                                     </iframe>
                                 </div>
                             {% else %}
-                                <img class="img-responsive" src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt="">
+                                <img class="img-responsive"
+                                     src="{{ MEDIA_URL }}{{ blog.thumbnail }}" alt="{{ blog.title }}">
                             {% endif %}
                         </div>
                         <div class="col-md-7">
