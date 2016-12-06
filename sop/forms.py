@@ -56,7 +56,7 @@ class SOPSubmitForm(forms.Form):
         if(previous_submission):
             error_msg = "You can only submit one file to review from each category.\
              You have already sumiited one file on {0} category. Please select another\
-             or email us at aaa@gmail.com".format(self.cleaned_data['review_type'])
+             or email us at support@mystudynotebook.com".format(self.cleaned_data['review_type'])
 
             raise forms.ValidationError(error_msg)
 
