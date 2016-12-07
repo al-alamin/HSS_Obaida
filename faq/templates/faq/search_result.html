@@ -29,46 +29,8 @@
             <!-- main content-->
             <div class="col-md-10">
                 {% include 'faq/search_main_content.html' %}
+                {% include 'faq/faq_pagination.html' %}
             </div>
-
-
-
-         <!-- This is pagination menu. If the search sesult is only one page then this menu wont appear -->
-
-        {% if search_result_pagination.paginator.num_pages > 1 %}
-          <div>
-           <div>        
-           Page {{ search_result_pagination.number }} of {{ search_result_pagination.paginator.num_pages }}
-           
-           </div>
-            <ul class="pagination">
-            <li><a href="?page=1">First Page</a></li>
-            {% if search_result_pagination.has_previous %}
-              <li><a href="?page={{ search_result_pagination.previous_page_number }}">Previous</a></li>
-            {% else %}
-              <li class="disabled"><a href="#">Next</a></li>
-            {% endif %}
-
-            {% for page in pages_to_show %}            
-              {% if page == -1 %}
-              <li class="disabled"><a href="#">&hellip;</a></li>
-              {% else %}
-              <li><a href="?page={{ page }}">{{page}}</a>
-              {% endif %}
-            {% endfor %}
-
-            {% if search_result_pagination.has_next %}         
-              <li><a href="?page={{ search_result_pagination.next_page_number }}">Next</a></li>
-            {% else %}            
-              <li class="disabled"><a href="#">Next</a></li>
-            {% endif %}
-            <li><a href="?page={{pages_to_show|last}}">Last Page</a></li>
-
-            </ul>
-          </div>
-
-        {% endif %}
-
 
         </div>
 
