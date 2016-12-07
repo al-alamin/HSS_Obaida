@@ -96,15 +96,27 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     page = 1
     # when user clicks on pagination page links there there will be a get request
     if request.method == 'GET':
-        page = request.GET.get('page', 1)
-        # getting previously stored search keyword from session variable
-        search_for = request.session.get('search_for')
-        if(search_for):
-            faq_form = FaqSearchForm(data={'search_item': search_for})
-            if(faq_form.is_valid()):
-                search_result = faq_form.get_search_result()
-        else:
-            return redirect('faq')
+
+        if question_id is not None:
+            search_result = Question.objects.filter(id=question_id)
+            search_for = 'Single Question'
+            is_single = True
+        elif cat_id is not None:
+            search_result = Question.objects.filter(category__id=cat_id)
+            search_for = models.Category.objects.get(id=cat_id).name + ' Category'
+        elif tag_id is not None:
+            search_result = Question.objects.filter(tag__id=tag_id)
+            search_for = models.Tag.objects.get(id=tag_id).name + ' Tag'
+        else:            
+            page = request.GET.get('page', 1)
+            # getting previously stored search keyword from session variable
+            search_for = request.session.get('search_for')
+            if(search_for):
+                faq_form = FaqSearchForm(data={'search_item': search_for})
+                if(faq_form.is_valid()):
+                    search_result = faq_form.get_search_result()
+            else:
+                return redirect('faq')
 
     # when the user search using the search box then there will be a post
     # request.
@@ -119,18 +131,7 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
             else:
                 return redirect('faq')
 
-    elif question_id is not None:
-        search_result = Question.objects.filter(id=question_id)
-        search_for = 'Single Question'
-        is_single = True
-    elif cat_id is not None:
-        search_result = Question.objects.filter(category__id=cat_id)
-        search_for = models.Category.objects.get(id=cat_id).name + ' Category'
-    elif tag_id is not None:
-        search_result = Question.objects.filter(tag__id=tag_id)
-        search_for = models.Tag.objects.get(id=tag_id).name + ' Tag'
-    else:
-        return redirect('faq')
+
 
     # https://docs.djangoproject.com/en/1.10/topics/pagination/
     # This part is need for pagination

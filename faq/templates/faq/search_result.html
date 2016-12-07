@@ -34,12 +34,14 @@
           <div>
            <div>        
            Page {{ search_result_pagination.number }} of {{ search_result_pagination.paginator.num_pages }}
+           
            </div>
             <ul class="pagination">
+            <li><a href="?page=1">First Page</a></li>
             {% if search_result_pagination.has_previous %}
-              <li><a href="?page={{ search_result_pagination.previous_page_number }}">&laquo;</a></li>
+              <li><a href="?page={{ search_result_pagination.previous_page_number }}">Previous</a></li>
             {% else %}
-              <li class="disabled"><a href="#">&laquo;</a></li>
+              <li class="disabled"><a href="#">Next</a></li>
             {% endif %}
 
             {% for page in pages_to_show %}            
@@ -51,10 +53,11 @@
             {% endfor %}
 
             {% if search_result_pagination.has_next %}         
-              <li><a href="?page={{ search_result_pagination.next_page_number }}">&raquo;</a></li>
+              <li><a href="?page={{ search_result_pagination.next_page_number }}">Next</a></li>
             {% else %}            
-              <li class="disabled"><a href="#">&raquo;</a></li>
+              <li class="disabled"><a href="#">Next</a></li>
             {% endif %}
+            <li><a href="?page={{pages_to_show|last}}">Last Page</a></li>
 
             </ul>
           </div>
