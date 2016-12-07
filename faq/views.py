@@ -99,7 +99,8 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     # when user clicks on pagination page links there there will be a get
     # request
     if request.method == 'GET':
-
+        # getting page no ie which page of result to get. now need to get the search result, and search for text
+        page = request.GET.get('page', 1)
         if question_id is not None:
             search_result = Question.objects.filter(id=question_id)
             search_for = 'Single Question'
@@ -112,7 +113,7 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
             search_result = Question.objects.filter(tag__id=tag_id)
             search_for = models.Tag.objects.get(id=tag_id).name + ' Tag'
         else:
-            page = request.GET.get('page', 1)
+            
             # getting previously stored search keyword from session cookie
             # variable
             search_for = request.COOKIES.get('search_for')
