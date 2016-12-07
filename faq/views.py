@@ -41,12 +41,14 @@ def get_pages_to_show(paginator, page):
     # skip pages will in the pages to show list where to put .. ie -1
     skip_pages = []
     for i in range(len(pages_to_show) - 1):
-        # if the list is not incrementing normally then there is a gap ie .. ie -1 is needed
+        # if the list is not incrementing normally then there is a gap ie .. ie
+        # -1 is needed
         if((pages_to_show[i+1] - pages_to_show[i]) != 1):
             skip_pages.append(pages_to_show[i+1])
-   
+
     # Each page in skip_pages should be follwed by -1 to identify ...
-    # now appending -1 in the pages to show list. in the template when -1 is found .. will be printed
+    # now appending -1 in the pages to show list. in the template when -1 is
+    # found .. will be printed
     for i in skip_pages:
         pages_to_show.insert(pages_to_show.index(i), -1)
 
@@ -94,7 +96,8 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
     search_result = ""
     # this is for which page no of the request to send to the user
     page = 1
-    # when user clicks on pagination page links there there will be a get request
+    # when user clicks on pagination page links there there will be a get
+    # request
     if request.method == 'GET':
 
         if question_id is not None:
@@ -103,14 +106,16 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
             is_single = True
         elif cat_id is not None:
             search_result = Question.objects.filter(category__id=cat_id)
-            search_for = models.Category.objects.get(id=cat_id).name + ' Category'
+            search_for = models.Category.objects.get(
+                id=cat_id).name + ' Category'
         elif tag_id is not None:
             search_result = Question.objects.filter(tag__id=tag_id)
             search_for = models.Tag.objects.get(id=tag_id).name + ' Tag'
-        else:            
+        else:
             page = request.GET.get('page', 1)
-            # getting previously stored search keyword from session variable
-            search_for = request.session.get('search_for')
+            # getting previously stored search keyword from session cookie
+            # variable
+            search_for = request.COOKIES.get('search_for')
             if(search_for):
                 faq_form = FaqSearchForm(data={'search_item': search_for})
                 if(faq_form.is_valid()):
@@ -125,13 +130,10 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
         if faq_search_form.is_valid():
             search_for = faq_search_form.cleaned_data['search_item']
             if search_for:
-                # saving query key word to session variable
-                request.session['search_for'] = search_for
+                # saving query key word to session cookie variable
                 search_result = faq_search_form.get_search_result()
             else:
                 return redirect('faq')
-
-
 
     # https://docs.djangoproject.com/en/1.10/topics/pagination/
     # This part is need for pagination
@@ -151,4 +153,9 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
         'search_result_pagination': search_result_pagination,
         'pages_to_show': pages_to_show
     }
-    return render(request, 'faq/search_result.html', context)
+
+    response = render(request, 'faq/search_result.html', context)
+    # saving query key word to session cookie variable
+    # max_age in seconds . cookie will expire in 1 hour
+    response.set_cookie('search_for', search_for, max_age=3600)
+    return response
