@@ -161,7 +161,7 @@ AUTHENTICATION_BACKENDS = (
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 CKEDITOR_MEDIA_URL = '/static/third-party/ckeditor'
-CKEDITOR_UPLOAD_PATH = "media/uploads/"
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 
 CKEDITOR_BROWSE_SHOW_DIRS = True

@@ -13,3 +13,4 @@ settings/local.py
 *.fuse_hidden*
 backup
 *.swp
+server_static
