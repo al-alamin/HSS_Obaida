@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'ckeditor_uploader',
     'celery_app',
     'download_center',
+    'model_test',
     # 'djcelery',
     'django.contrib.postgres',
 )
