@@ -82,6 +82,7 @@ class Result(models.Model):
     subject_test = models.ForeignKey(SubjectTest, blank=True, null=True)
     start_time = models.DateTimeField(blank=True, null=True)
     submission_time = models.DateTimeField(blank=True, null=True)
+    marks = models.IntegerField(default=0)
     # For saving the answer the user submitted during the test
     myanswers = ArrayField(
         models.PositiveSmallIntegerField(), blank=True, null=True)
