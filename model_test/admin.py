@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from model_test.models import ModelTest, SubjectTest, MCQ, Result
+from model_test.models import ModelTest, SubjectTest, MCQ, SubjestTestResult
 
 
 class ModelTestAdmin(admin.ModelAdmin):
@@ -17,11 +17,11 @@ class MCQAdmin(admin.ModelAdmin):
     pass
 
 
-class ResultAdmin(admin.ModelAdmin):
+class SubjestTestResultAdmin(admin.ModelAdmin):
     pass
 
 
 admin.site.register(ModelTest, ModelTestAdmin)
 admin.site.register(SubjectTest, SubjectTestAdmin)
-admin.site.register(Result, ResultAdmin)
+admin.site.register(SubjestTestResult, SubjestTestResultAdmin)
 admin.site.register(MCQ, MCQAdmin)
