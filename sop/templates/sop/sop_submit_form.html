@@ -1,6 +1,6 @@
 <!-- Contacts -->
 {% load staticfiles %}
-<div class="container content" id="sop_submit_form">
+<div class="container content" id="sop_submit_form" xmlns="http://www.w3.org/1999/html">
     {% if user.is_authenticated %}
         <form action="{% url 'sop_review' %}" enctype="multipart/form-data" method="post" id="sky-form3"
               class="sky-form {% if email_success %} submited {% endif %}">
@@ -57,13 +57,14 @@
                 </section>
 
                 <section>
+                    <label class="label">File input </label>
                     <label for="file" class="input input-file">
                         <div class="button">
-                            {{ form.file.errors }}
-                            {{ form.file }}
-                            Browse
+                            {{ form.file.errors }}{{ form.file }}Browse
                         </div>
-                        <input type="text" placeholder="Include your SOP (Only .doc or .docx file)" readonly>
+                        <!-- check the java script at bottom of this file to change the value of text-->
+                        <input type="text" id="placeholder_text" readonly=""
+                               value="Please select only .doc or .docx file">
                     </label>
                 </section>
             </fieldset>
@@ -83,4 +84,11 @@
             submit your document!</h2>
     {% endif %}
 </div>
-<!-- Contacts -->
+
+<script>
+    var filename
+    document.getElementById('file').onchange = function changeText() {
+        filename = this.value.split(String.fromCharCode(92));
+        document.getElementById("placeholder_text").value = filename[filename.length - 1];
+    }
+</script>

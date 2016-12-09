@@ -18,7 +18,7 @@ class SOPSubmitForm(forms.Form):
     msg = forms.CharField(
         max_length=500, label='Message', widget=forms.Textarea(attrs=attrs))
     file_attrs = {'required': 'required',
-                  'onchange': "this.parentNode.nextSibling.value = this.value",
+                  'id': 'file', # id 'file' is required for javascript
                   }
 
     file = forms.FileField(widget=forms.FileInput(attrs=file_attrs))
