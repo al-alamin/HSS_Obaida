@@ -23,8 +23,8 @@ class SOPSubmitForm(forms.Form):
 
     file = forms.FileField(widget=forms.FileInput(attrs=file_attrs))
 
-    department = forms.CharField(
-        max_length=50, label='Department Name', widget=forms.TextInput(attrs=attrs))
+    intended_department = forms.CharField(
+        max_length=50, label='Intended Department', widget=forms.TextInput(attrs=attrs))
 
     REVIEW_CHOICES = (
         ("sop", "SOP"),
@@ -53,7 +53,7 @@ class SOPSubmitForm(forms.Form):
                                                               review_type=review_type)
 
         # This means user has already submitted a review form in this category
-        if(previous_submission):
+        if (previous_submission):
             error_msg = "You can only submit one file to review from each category.\
              You have already sumiited one file on {0} category. Please select another\
              or email us at support@mystudynotebook.com".format(self.cleaned_data['review_type'])
@@ -65,12 +65,12 @@ class SOPSubmitForm(forms.Form):
         from_email = self.cleaned_data['email']
         msg = self.cleaned_data['msg']
         review_type = self.cleaned_data['review_type']
-        department = self.cleaned_data['department']
+        department = self.cleaned_data['intended_department']
         subject = "{0} submitted a SOP for review".format(name)
-        body = "Message is: {0}<br>"\
-               "Review Type: {1}<br>"\
-               "Intended Department {2}<br>".format(
-                   msg, review_type, department)
+        body = """
+        Message: {0}
+        Document Type: {1}
+        Intended Department {2}""".format(msg, review_type, department)
 
         email_success = True
         email_success = send_mail(

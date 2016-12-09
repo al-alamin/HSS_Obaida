@@ -1,90 +1,86 @@
 <!-- Contacts -->
 {% load staticfiles %}
 <div class="container content" id="sop_submit_form">
-{% if user.is_authenticated %}
-    <form action="{% url 'sop_review' %}" enctype="multipart/form-data" method="post" id="sky-form3" class="sky-form {% if email_success %} submited {% endif %}">
-        {% csrf_token %}
-        <header>Submit Your SOP</header>
+    {% if user.is_authenticated %}
+        <form action="{% url 'sop_review' %}" enctype="multipart/form-data" method="post" id="sky-form3"
+              class="sky-form {% if email_success %} submited {% endif %}">
+            {% csrf_token %}
+            <header>Submit Your SOP</header>
 
-        <fieldset>
-            <div class="row">
-                {{ form.non_field_errors }}
-                <section class="col col-6">
-                    <label class="label">Name</label>
-                    <label class="input">
-                        <i class="icon-append fa fa-user"></i>
-                        {{ form.name.errors }}
-                        {{ form.name }}
+            <fieldset>
+                <div class="row">
+                    {{ form.non_field_errors }}
+                    <section class="col col-6">
+                        <label class="label">Name</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-user"></i>
+                            {{ form.name.errors }}
+                            {{ form.name }}
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="label">E-mail</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope-o"></i>
+                            {{ form.email.errors }}
+                            {{ form.email }}
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    {{ form.non_field_errors }}
+                    <section class="col col-6">
+                        <label class="label">Intended Department</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope-o"></i>
+                            {{ form.intended_department.errors }}
+                            {{ form.intended_department }}
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="label">Document Type</label>
+                        <label class="select">
+                            <i></i>
+                            {{ form.review_type.errors }}
+                            {{ form.review_type }}
+                        </label>
+                    </section>
+                </div>
+                <section>
+                    <label class="label">Message</label>
+                    <label class="textarea">
+                        <i class="icon-append fa fa-comment"></i>
+                        {{ form.msg.errors }}
+                        {{ form.msg }}
                     </label>
                 </section>
-                <section class="col col-6">
-                    <label class="label">E-mail</label>
-                    <label class="input">
-                        <i class="icon-append fa fa-envelope-o"></i>
-                        {{ form.email.errors }}
-                                {{ form.email }}
+
+                <section>
+                    <label for="file" class="input input-file">
+                        <div class="button">
+                            {{ form.file.errors }}
+                            {{ form.file }}
+                            Browse
+                        </div>
+                        <input type="text" placeholder="Include your SOP (Only .doc or .docx file)" readonly>
                     </label>
                 </section>
+            </fieldset>
+
+            <footer>
+                <button type="submit" class="button">Send message</button>
+            </footer>
+
+            <div class="message">
+                <i class="rounded-x fa fa-check"></i>
+
+                <p>Your message was successfully sent!</p>
             </div>
-
-
-
-            <div class="row">
-            <section>
-                <label class="label">Message</label>
-                <label class="textarea">
-                    <i class="icon-append fa fa-comment"></i>
-                      {{ form.msg.errors   }}
-                                {{ form.msg }}
-                </label>
-            </section>
-            </div>
-
-            <div class="row">
-            <section class="col col-6">
-                <label class="label">Department Name</label>
-                <label class="input">
-                    <i class="icon-append fa fa-user"></i>
-                    {{ form.department.errors }}
-                    {{ form.department }}
-                </label>
-            </section>
-            </div>
-
-            <div class="row">
-            <section>
-                <label class="label">Review Type</label>
-                <label class="textarea">                    
-                      {{ form.review_type.errors   }}
-                                {{ form.review_type }}
-                </label>
-            </section> 
-            </div>
-
-            <div class="row">
-            <section>
-                <label for="file" class="input input-file">
-                    <div class="button">
-                        {{ form.file.errors }}
-                        {{ form.file }}
-                        Browse</div>
-                    <input type="text" placeholder="Include your SOP (Only .doc or .docx file)" readonly>
-                </label>
-            </section>
-            <div class="row">
-        </fieldset>
-
-        <footer>
-            <button type="submit" class="button">Send message</button>
-        </footer>
-
-        <div class="message">
-            <i class="rounded-x fa fa-check"></i>
-            <p>Your message was successfully sent!</p>
-        </div>
-    </form>
-{% else %}
-    <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to submit your document!</h2>
-{% endif %}
+        </form>
+    {% else %}
+        <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to
+            submit your document!</h2>
+    {% endif %}
 </div>
 <!-- Contacts -->

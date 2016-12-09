@@ -74,9 +74,9 @@ def get_page(paginator, page):
 
 def faq(request):
     types = models.Type.objects.all()
-    recent_q = Question.objects.all().order_by('date_modified')[:50]
+    recent_q = Question.objects.all().order_by('-date_modified')[:50]
     popular_q = Question.objects.filter(
-        is_popular=True).order_by('date_modified')[:50]
+        is_popular=True).order_by('-date_modified')[:50]
     faq_search_form = FaqSearchForm()
     context = {'types': types,
                'recent_q': recent_q,
@@ -138,7 +138,7 @@ def search_result(request, question_id=None, cat_id=None, tag_id=None):
 
     # https://docs.djangoproject.com/en/1.10/topics/pagination/
     # This part is need for pagination
-    item_per_page = 1
+    item_per_page = 20
 
     # objects = [x for x in range(0,1000)]
     paginator = Paginator(search_result, item_per_page)
