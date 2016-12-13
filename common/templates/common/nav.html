@@ -53,6 +53,9 @@
                                 Services
                             </a>
                             <ul class="dropdown-menu">
+                                <li class=" {% if request.resolver_match.url_name == "practice_test" %}active{% endif %}">
+                                    <a href="/practice-test">PRACTICE TEST</a>
+                                </li>
                                 <li class=" {% if request.resolver_match.url_name == "sop_review" %}active{% endif %}">
                                     <a href="/sop">SOP REVIEW</a>
                                 </li>

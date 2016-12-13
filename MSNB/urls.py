@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
     url(r'^profile/', include('user_profile.urls')),
     url(r'^download/', include('download_center.urls')),
+    url(r'^practice-test/', include('practice_test.urls')),
     url(r'^google_search/$', google_custom_search, name='google_search'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # djangos default url for login
