@@ -1,0 +1,51 @@
+{% extends "common/base.html" %}
+{% block title %}Practice test for GRE, TOEFL, SAT{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="Online free practice test model test for GRE, TOEFL, SAT">
+    <meta name="keywords"
+          content="GRE, TOEFL, SAT, Online test, model test, practice test, higher study">
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    {% include "sop/image_banner.html" %}
+    <div class="bg-color-light">
+        <div class="container content-sm">
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <div class="headline-left margin-bottom-30">
+                        <h1 class="headline-brd">Why should you take practice test?</h1>
+
+                        <p>
+                            Practice makes a man perfect. Student often struggles with timing and most of the time they
+                            are unfamiliar with online test. It is of utmost importance to practice in an environment
+                            that is exact as the original exam
+
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-md-4 md-margin-bottom-50 margin-top-20">
+                    <a href="#">
+                        <button class="btn-u btn-u-lg btn-block btn-u-blue margin-bottom-5" type="button">
+                            GRE Practice Test
+                        </button>
+                    </a>
+                    <a href="#">
+                        <button class="btn-u btn-u-lg btn-block btn-u-green margin-bottom-5" type="button">
+                            TOEFL Practice Test (Coming Soon)
+                        </button>
+                    </a>
+                    <a href="#">
+                        <button class="btn-u btn-u-lg btn-block btn-u-red margin-bottom-5" type="button">
+                            SAT Practice Test (Coming Soon)
+                        </button>
+                    </a>
+
+                </div>
+            </div><!--/end row-->
+        </div>
+    </div>
+{% endblock %}
