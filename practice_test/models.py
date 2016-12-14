@@ -2,7 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from ckeditor_uploader.fields import RichTextUploadingField
-from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.core.validators import MaxValueValidator, MinValueValidator
+
+# Difficuty choices for a MCQ or Complete Model Test
+DIFFICUTY_CHOICES = (
+    (1, '1'),
+    (2, '2'),
+    (3, '3'),
+    (4, '4'),
+    (5, '5'),
+)
 
 
 class ModelTest(models.Model):
@@ -20,7 +29,7 @@ class ModelTest(models.Model):
     # There might be different difficulty model test easy medium hard. User might want to
     # take a easy or medium model test.
     difficulty = models.PositiveSmallIntegerField(
-        default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+        default=1, choices=DIFFICUTY_CHOICES)
 
     def __str__(self):
         return self.name
@@ -45,8 +54,9 @@ class SubjectTest(models.Model):
     # there will be different no of mcqs in a subject test total marks will be
     # differnt.
     per_mcq_marks = models.PositiveSmallIntegerField(default=1)
+
     difficulty = models.PositiveSmallIntegerField(
-        default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+        default=1, choices=DIFFICUTY_CHOICES)
 
     def __str__(self):
         return self.name
@@ -58,18 +68,18 @@ class MCQ(models.Model):
     # file will be saved to media/ckeditor_uploads specified in base.py. There are
     # other options to customize upload location
     question = RichTextUploadingField("Question")
-    choice_a = models.CharField(max_length=200, blank=True, null=True)
-    choice_b = models.CharField(max_length=200, blank=True, null=True)
-    choice_c = models.CharField(max_length=200, blank=True, null=True)
-    choice_d = models.CharField(max_length=200, blank=True, null=True)
-    choice_e = models.CharField(max_length=200, blank=True, null=True)
+    choice_a = models.CharField(max_length=200)
+    choice_b = models.CharField(max_length=200)
+    choice_c = models.CharField(max_length=200)
+    choice_d = models.CharField(max_length=200)
+    choice_e = models.CharField(max_length=200)
     choice_f = models.CharField(max_length=200, blank=True, null=True)
 
     answer = ArrayField(models.CharField(max_length=3))
     answer_explanation = RichTextUploadingField(
         "Answer Explanation: ", blank=True, null=True)
     difficulty = models.PositiveSmallIntegerField(
-        default=1, validators=[MaxValueValidator(5), MinValueValidator(1)])
+        default=1, choices=DIFFICUTY_CHOICES)
 
     def __str__(self):
         return self.question
@@ -90,11 +100,11 @@ class SubjestTestResult(models.Model):
     submission_time = models.DateTimeField(blank=True, null=True)
     marks = models.IntegerField(default=0)
     # For saving the answer the user submitted during the test
-    myanswers = ArrayField(
+    user_answers = ArrayField(
         models.PositiveSmallIntegerField(), blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.username + "  " + subject_test
 
 
 class ModelTestResult(models.Model):
@@ -109,9 +119,6 @@ class ModelTestResult(models.Model):
     start_time = models.DateTimeField(blank=True, null=True)
     submission_time = models.DateTimeField(blank=True, null=True)
     marks = models.IntegerField(default=0)
-    # For saving the answer the user submitted during the test
-    subject_wise_marks = ArrayField(
-        models.PositiveSmallIntegerField(), blank=True, null=True)
 
     def __str__(self):
         return self.user.username
