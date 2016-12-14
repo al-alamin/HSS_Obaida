@@ -19,7 +19,7 @@
          {% for test in subject_test %}
             
           {% ifequal test.subject_type 'quantitative' %}
-         	<li> {{ test }}</li>
+         	<a href="{% url 'gre_subject_test_rules' test.id %}" ><li> {{ test }}</li></a>
          	{% endifequal %}
          {% endfor %}
       </ul>

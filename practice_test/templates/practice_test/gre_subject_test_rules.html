@@ -1,0 +1,29 @@
+{% extends "common/base.html" %}
+{% block title %}Practice test for GRE, TOEFL, SAT{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="Online free practice test model test for GRE, TOEFL, SAT">
+    <meta name="keywords"
+          content="GRE, TOEFL, SAT, Online test, model test, practice test, higher study">
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    
+  <!-- <div class="bg-color-light"> -->
+    <div class="container content-sm">
+      <h1> GRE Subject Test Rules </h1>
+      <p>Title: {{ subject_test }}</p>
+      <p>Time: {{ subject_test.duration }}</p>
+      <p>Difficulty: {{ subject_test.difficulty }}</p>
+      <p> Rules</p>
+      <p> Rules</p>
+      <p> Rules</p>
+      <p> Rules</p>
+      {% if user.is_authenticated %}
+      <button> Start Exam </button>
+        {% else %}
+            <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> Start The Exam</h2>
+        {% endif %}
+    </div>
+  <!-- </div> -->
+{% endblock %}
