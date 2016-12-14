@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from model_test.models import ModelTest, SubjectTest, MCQ, SubjestTestResult
+from practice_test.models import ModelTest, SubjectTest, MCQ, SubjestTestResult
 
 
 class ModelTestAdmin(admin.ModelAdmin):
