@@ -1,6 +1,13 @@
 from django.shortcuts import render
+from django.views import View
 
+class GreView(View):
 
-# Create your views here.
-def practice_test(request):
-    return render(request, 'practice_test/practice_test.html')
+    template_name = 'practice_test/gre.html'
+
+    def get(self, request, *args, **kwargs):
+
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        pass
