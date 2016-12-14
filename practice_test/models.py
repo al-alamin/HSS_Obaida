@@ -4,6 +4,15 @@ from django.contrib.postgres.fields import ArrayField
 from ckeditor_uploader.fields import RichTextUploadingField
 # from django.core.validators import MaxValueValidator, MinValueValidator
 
+# This choices are necessary for both ModelTest and Subject test.
+# These are fundamental Exam Type
+
+EXAM_TYPE_CHOICES = (
+    ('gre', 'GRE'),
+    ('toefl', 'TOEFL'),
+    ('gmat', 'GMAT'),
+    ('sat', 'SAT')
+)
 # Difficuty choices for a MCQ or Complete Model Test
 DIFFICUTY_CHOICES = (
     (1, '1'),
@@ -17,13 +26,8 @@ DIFFICUTY_CHOICES = (
 class ModelTest(models.Model):
 
     name = models.CharField(max_length=50)
-    exam_type_choices = (
-        ('gre', 'GRE'),
-        ('toefl', 'TOEFL'),
-        ('gmat', 'GMAT'),
-        ('sat', 'SAT')
-    )
-    exam_type = models.CharField(choices=exam_type_choices, max_length=30,
+
+    exam_type = models.CharField(choices=EXAM_TYPE_CHOICES, max_length=30,
                                  help_text='Select Exam Type: ')
     fee = models.PositiveSmallIntegerField(default=0)
     # There might be different difficulty model test easy medium hard. User might want to
@@ -40,11 +44,14 @@ class SubjectTest(models.Model):
     name = models.CharField(max_length=50)
     # can this field be bannk and null?
     model_test = models.ForeignKey(ModelTest, blank=True, null=True)
-    subject_type_choices = (
+    SUBJECT_TYPE_CHOICES = (
         ('quantitative', 'Quantitative'),
         ('verbal', 'Verbal'),
     )
-    subject_type = models.CharField(choices=subject_type_choices, max_length=30,
+    # A single subject test might be for gre and might be for GMAT.
+    exam_type = models.CharField(choices=EXAM_TYPE_CHOICES, max_length=30,
+                                 help_text='Select Exam Type: ')
+    subject_type = models.CharField(choices=SUBJECT_TYPE_CHOICES, max_length=30,
                                     help_text='Select Subject Type: ')
     fee = models.PositiveSmallIntegerField(default=0)
     # Duration is important becasue for gre/SAT/Tofel/gmat one subject test
@@ -73,6 +80,7 @@ class MCQ(models.Model):
     choice_c = models.CharField(max_length=200)
     choice_d = models.CharField(max_length=200)
     choice_e = models.CharField(max_length=200)
+    # This is just in case if any exam has more than 5 choices.
     choice_f = models.CharField(max_length=200, blank=True, null=True)
 
     answer = ArrayField(models.CharField(max_length=3))

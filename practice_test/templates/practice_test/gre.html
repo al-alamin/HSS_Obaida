@@ -9,13 +9,30 @@
 {% load staticfiles %}
 {% block content %}
     
-    <div class="bg-color-light">
-        <div class="container content-sm">
-            <h1> GRE Home Page</h1>
+  <div class="bg-color-light">
+    <div class="container content-sm">
+      <h1> GRE Home Page</h1>
 
-            <h1>Subject wise Test</h1>
+      <h1>Subject wise Test</h1>
+      <h3>Quantative</h3>
+      <ul>
+         {% for test in subject_test %}
+            
+          {% ifequal test.subject_type 'quantitative' %}
+         	<li> {{ test }}</li>
+         	{% endifequal %}
+         {% endfor %}
+      </ul>
+      <h3>Verbal</h3>
+      <ul>
+         {% for test in subject_test %}
+          {% ifequal test.subject_type 'verbal' %}
+         		<li> {{ test }} </li>
+         	{% endifequal %}
+         {% endfor %}
+      </ul>
 
-            <h1> Complete Model Test</h1>
-        </div>
+        <h1> Complete Model Test</h1>
     </div>
+  </div>
 {% endblock %}
