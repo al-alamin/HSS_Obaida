@@ -20,7 +20,7 @@
       <p> Rules</p>
       <p> Rules</p>
       {% if user.is_authenticated %}
-      <button> Start Exam </button>
+      <a href="{% url 'gre_subject_test_exam' subject_test.id %}" ><button> Start Exam </button></a>
         {% else %}
             <h2 class="text-danger text-center">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> Start The Exam</h2>
         {% endif %}

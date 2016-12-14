@@ -1,0 +1,110 @@
+{% extends "common/base.html" %}
+{% block title %}Practice test for GRE, TOEFL, SAT{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="Online free practice test model test for GRE, TOEFL, SAT">
+    <meta name="keywords"
+          content="GRE, TOEFL, SAT, Online test, model test, practice test, higher study">
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    
+  <!-- <div class="bg-color-light"> -->
+    <div class="container content-sm">
+
+      <h1> GRE Subject Test Exam</h1>
+      <h2>Time:  </h2>
+      <!-- This is need for timer auto finished exam id=time is needed for timing -->
+      <h3 > <div id="time" style="color:#FF00FF"> {{ total_time }} </div></h3>
+
+
+
+
+
+
+
+  <form action="" method="post" >
+  {% csrf_token %}
+    <ol class="list-group">
+      <div id="content">
+
+      {% for mcq in mcq_list %}
+
+      
+        <li class="list-group-item">
+            <h4 align="left">
+            Question  {{ forloop.counter }} :   {{ mcq.question|safe }}
+            </h4>
+            </a>
+                    
+            <div>
+
+            <h5>Choices: </h5>
+
+            
+            <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_a }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_a }}  </label><br />
+            
+
+            <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_b }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_b }}  </label><br />
+
+
+            <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_c }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_c }}  </label><br />
+
+
+              <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_d }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_d }}  </label><br />
+
+            {% if mcq.choice_e %}
+                <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_e }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_e }}  </label><br />
+            {% endif %}
+
+            {% if mcq.choice_f %}
+                <input type='checkbox' name="{{ mcq.id }}" id="choice{{ forloop.counter }}" value="{{ mcq.choice_f }}" />
+                <label for="choice{{ forloop.counter }}">{{ mcq.choice_f }}  </label><br />
+            {% endif %}
+
+         </li>
+
+
+
+        {% endfor %}
+      </div>
+    </ol>
+
+    
+    <style type="text/css" media="screen">
+        .pagination{          
+          padding: 5px;
+        }  
+    </style>
+    <!--  This fields are needed for pagination -->
+    <input type='hidden' id='current_page' />
+    <input type='hidden' id='show_per_page' />
+    <div id='page_navigation'></div>
+
+    <br><br><br>
+   <input type="submit" class="btn btn-info" value="Submit Answer">
+   <br><br>
+   <br>
+
+   
+  </form>
+
+
+
+{% block customJs %}
+<script type="text/javascript" src="{% static 'common/pagination.js' %}"></script>
+<script type="text/javascript" src="{% static 'common/exam_timer.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+    </div>
+  <!-- </div> -->
+{% endblock %}
