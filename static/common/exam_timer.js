@@ -1,6 +1,6 @@
 function defer() {
     if (window.jQuery){
-      console.log("...........loaded......");
+      console.log("...........titme loaded......");
       timer_logic();
 
     }
@@ -12,6 +12,7 @@ function defer() {
 };
 defer();
 
+// The defer is only making sure that the javascript wont run until the jquery is loaded.
 
 
 function timer_logic(){

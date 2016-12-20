@@ -1,6 +1,6 @@
 function defer() {
     if (window.jQuery){
-    	console.log("...........loaded......");
+    	console.log("...........pagination loaded......");
     	pagination_logic();
     	console.log("called the pagination_logic method");
     }
