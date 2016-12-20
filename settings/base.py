@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'celery_app',
     'download_center',
     'practice_test',
+    'gre_practice_test',
     # 'djcelery',
     'django.contrib.postgres',
 )

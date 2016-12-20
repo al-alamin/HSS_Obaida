@@ -1,0 +1,46 @@
+{% extends "common/base.html" %}
+{% block title %}Practice test for GRE, TOEFL, SAT{% endblock %}
+{% block meta %}
+    <meta name="description"
+          content="Online free practice test model test for GRE, TOEFL, SAT">
+    <meta name="keywords"
+          content="GRE, TOEFL, SAT, Online test, model test, practice test, higher study">
+{% endblock %}
+{% load staticfiles %}
+{% block content %}
+    
+  <div class="bg-color-light">
+    <div class="container content-sm">
+      <h1> GRE Home Page</h1>
+
+	  <div class="bg-color-light">
+	    <div class="container content-sm">
+	      <h1> GRE Home Page</h1>
+
+	      <h1>Subject wise Test</h1>
+	      <h3>Quantative Reasoning</h3>
+	      <ul>
+	         {% for test in subject_test %}
+	            
+	          {% ifequal test.subject_type 'quantitative' %}
+	         	<a href="{% url 'gre_practice_test:rules' test.id %}" ><li> {{ test }}</li></a>
+	         	{% endifequal %}
+	         {% endfor %}
+	      </ul>
+	      <h3>Verbal Reasoning </h3>
+	      <ul>
+	         {% for test in subject_test %}
+	          {% ifequal test.subject_type 'verbal' %}
+	         		<li> {{ test }} </li>
+	         	{% endifequal %}
+	         {% endfor %}
+	      </ul>
+
+	        <h1> Complete Model Test</h1>
+	    </div>
+	  </div>
+      
+  </div>
+
+
+{% endblock %}
