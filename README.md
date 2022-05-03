@@ -1,2 +1,2 @@
 # HSS_Obaida
-# www.mystudynotebook.com
+# https://higherstudyprep.com/
